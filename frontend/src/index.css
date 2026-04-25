@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --neon-cyan: #00f3ff;
+    --neon-purple: #bf00ff;
+    --neon-pink: #ff00e5;
+    --glass-edge: rgba(255, 255, 255, 0.1);
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    cursor: default;
+  }
+  
+  body {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    background: #0a0a0f;
+    overflow-x: hidden;
+  }
+}
+
+@layer utilities {
+  .text-glow-neon {
+    text-shadow: 0 0 10px var(--neon-cyan),
+                 0 0 20px var(--neon-cyan),
+                 0 0 40px rgba(0, 243, 255, 0.5);
+  }
+  
+  .text-glow-purple {
+    text-shadow: 0 0 10px var(--neon-purple),
+                 0 0 20px var(--neon-purple);
+  }
+  
+  .border-glow {
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.3),
+                inset 0 0 20px rgba(0, 243, 255, 0.1);
+  }
+  
+  .animate-float-slow {
+    animation: floatSlow 8s ease-in-out infinite;
+  }
+  
+  .animate-float-fast {
+    animation: floatFast 4s ease-in-out infinite;
+  }
+  
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+  
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-30px) rotate(2deg); }
+}
+
+@keyframes floatFast {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(-2deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #00f3ff, #bf00ff);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #00f3ff, #ff00e5);
+}
