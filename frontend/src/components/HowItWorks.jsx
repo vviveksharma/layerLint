@@ -14,8 +14,8 @@ const HowItWorks = () => {
     {
       icon: FiSearch,
       step: '02',
-      title: 'AI Detection',
-      description: '15+ specialized rules scan for anti-patterns with ML suggestions.',
+      title: 'Pattern Detection',
+      description: '15+ specialized rules scan for anti-patterns with smart suggestions.',
       gradient: 'from-[#bf00ff] to-[#bf00ff]'
     },
     {
@@ -48,12 +48,12 @@ const HowItWorks = () => {
             <span className="text-[#bf00ff] text-sm font-medium">HOW IT WORKS</span>
           </div>
           <h2 className="text-5xl md:text-6xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-[#bf00ff] via-white to-[#ff00e5] bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-[#bf00ff] via-white to-[#ff00e5] bg-clip-text text-transparent">
               Four Steps to Speed
             </span>
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Simple workflow with powerful AI behind the scenes
+            Simple workflow with powerful analysis behind the scenes
           </p>
         </motion.div>
 
@@ -71,7 +71,7 @@ const HowItWorks = () => {
                 <div className="absolute -top-4 -right-4 text-6xl font-bold text-[#00f3ff]/10 group-hover:text-[#00f3ff]/20 transition-all duration-300">
                   {step.step}
                 </div>
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${step.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`w-14 h-14 rounded-xl bg-linear-to-br ${step.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
                   <step.icon className="text-white" size={28} />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">{step.title}</h3>

@@ -5,14 +5,12 @@ import { FiArrowRight, FiGithub, FiZap, FiTrendingUp, FiShield } from 'react-ico
 const Hero = () => {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Dynamic Gradient Background */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#00f3ff]/20 via-transparent to-transparent"></div>
-        <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-[#bf00ff]/20 via-transparent to-transparent"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-[#00f3ff]/20 via-transparent to-transparent"></div>
+        <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom,var(--tw-gradient-stops))] from-[#bf00ff]/20 via-transparent to-transparent"></div>
         <div className="absolute inset-0 bg-noise"></div>
       </div>
       
-      {/* Animated Particles */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(50)].map((_, i) => (
           <motion.div
@@ -42,7 +40,6 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, type: "spring" }}
         >
-          {/* Neon Badge */}
           <motion.div
             animate={{ 
               boxShadow: ['0 0 0px #00f3ff', '0 0 20px #00f3ff', '0 0 0px #00f3ff']
@@ -57,7 +54,6 @@ const Hero = () => {
             <span className="text-[#00f3ff] text-sm font-medium tracking-wider">NOW AVAILABLE — v2.0.0</span>
           </motion.div>
 
-          {/* Main Heading with 3D Effect */}
           <h1 className="text-6xl md:text-8xl font-bold mb-6 relative">
             <span className="relative inline-block">
               <span className="absolute inset-0 bg-linear-to-r from-[#00f3ff] via-[#bf00ff] to-[#ff00e5] blur-2xl opacity-50"></span>
@@ -71,13 +67,11 @@ const Hero = () => {
             </span>
           </h1>
 
-          {/* Subheading */}
           <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8 leading-relaxed">
-            AI-powered static analysis that identifies Docker layer caching anti-patterns. 
+            Static analysis that identifies Docker layer caching anti-patterns. 
             <span className="text-[#00f3ff] font-semibold"> Speed up CI/CD pipelines by 10x</span> with intelligent optimization.
           </p>
 
-          {/* Neon Stats */}
           <div className="flex flex-wrap justify-center gap-6 mb-12">
             {[
               { icon: FiZap, value: '10x', label: 'Faster Builds', color: '#00f3ff' },
@@ -92,7 +86,7 @@ const Hero = () => {
                 whileHover={{ scale: 1.05, y: -5 }}
                 className="relative group"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-[#00f3ff] to-[#bf00ff] rounded-2xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] rounded-2xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
                 <div className="relative flex items-center space-x-3 px-6 py-3 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
                   <stat.icon style={{ color: stat.color }} size={24} />
                   <span className="text-white font-bold text-2xl">{stat.value}</span>
@@ -102,7 +96,6 @@ const Hero = () => {
             ))}
           </div>
 
-          {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.a
               whileHover={{ scale: 1.05, boxShadow: '0 0 30px #00f3ff' }}
@@ -110,8 +103,8 @@ const Hero = () => {
               href="#demo"
               className="group relative px-8 py-4 rounded-xl font-semibold overflow-hidden"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-[#00f3ff] to-[#bf00ff]"></div>
-              <div className="absolute inset-[1px] bg-[#0a0a0f] rounded-xl"></div>
+              <div className="absolute inset-0 bg-linear-to-r from-[#00f3ff] to-[#bf00ff]"></div>
+              <div className="absolute inset-px bg-[#0a0a0f] rounded-xl"></div>
               <span className="relative text-white flex items-center gap-2">
                 Get Started
                 <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
@@ -131,7 +124,6 @@ const Hero = () => {
             </motion.a>
           </div>
 
-          {/* Modern Terminal Preview */}
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
@@ -139,9 +131,9 @@ const Hero = () => {
             className="mt-20 max-w-5xl mx-auto"
           >
             <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#00f3ff] to-[#bf00ff] rounded-2xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+              <div className="absolute -inset-1 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] rounded-2xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
               <div className="relative bg-black/60 backdrop-blur-2xl rounded-2xl border border-[#00f3ff]/30 overflow-hidden">
-                <div className="bg-gradient-to-r from-[#00f3ff]/10 to-[#bf00ff]/10 px-4 py-3 flex items-center gap-2 border-b border-white/10">
+                <div className="bg-linear-to-r from-[#00f3ff]/10 to-[#bf00ff]/10 px-4 py-3 flex items-center gap-2 border-b border-white/10">
                   <div className="flex gap-2">
                     <div className="w-3 h-3 rounded-full bg-red-500"></div>
                     <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
@@ -154,7 +146,7 @@ const Hero = () => {
                 <div className="p-6 font-mono text-sm">
                   <div className="flex items-center gap-2">
                     <span className="text-green-400">$</span>
-                    <span className="text-white">layerlint scan --dockerfile Dockerfile --ai</span>
+                    <span className="text-white">layerlint scan --dockerfile Dockerfile</span>
                   </div>
                   <div className="text-gray-500 mt-3">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
                   
@@ -165,7 +157,7 @@ const Hero = () => {
                     className="mt-3"
                   >
                     <div className="flex items-start gap-2">
-                      <span className="text-yellow-400 mt-1">⚠️</span>
+                      <span className="text-yellow-400 mt-1 text-xl">!</span>
                       <div>
                         <div className="text-yellow-400 font-semibold">Critical Finding Detected</div>
                         <div className="text-cyan-400 ml-4">Rule: dockerfile/broad-copy-before-deps</div>
@@ -174,7 +166,7 @@ const Hero = () => {
                           Dependency install runs after broad source copy — breaking layer cache
                         </div>
                         <div className="text-green-400 ml-4 mt-1">
-                          💡 AI Suggestion: Reorder layers — copy package files first, then install dependencies
+                          Suggestion: Reorder layers — copy package files first, then install dependencies
                         </div>
                       </div>
                     </div>
@@ -189,7 +181,6 @@ const Hero = () => {
                   >
                     <span className="text-green-400">✓</span>
                     <span className="text-green-400">Scan completed: 1 issue found</span>
-                    <span className="text-gray-500 text-xs ml-auto">✨ AI-powered analysis</span>
                   </motion.div>
                 </div>
               </div>

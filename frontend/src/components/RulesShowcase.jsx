@@ -59,7 +59,7 @@ const RulesShowcase = () => {
             <span className="text-[#ff00e5] text-sm font-medium">DETECTION RULES</span>
           </div>
           <h2 className="text-5xl md:text-6xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-[#ff00e5] via-white to-[#00f3ff] bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-[#ff00e5] via-white to-[#00f3ff] bg-clip-text text-transparent">
               15+ Intelligent Rules
             </span>
           </h2>
@@ -79,7 +79,7 @@ const RulesShowcase = () => {
               whileHover={{ scale: 1.02, x: 10 }}
               className="group relative"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-[#00f3ff] to-[#bf00ff] rounded-2xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] rounded-2xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
               <div className="relative bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-6 overflow-hidden">
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div className="flex-1">
@@ -93,7 +93,7 @@ const RulesShowcase = () => {
                     <h3 className="text-xl font-semibold text-white mb-2">{rule.title}</h3>
                     <p className="text-gray-400 mb-3">{rule.description}</p>
                     <div className="text-green-400 text-sm">
-                      🔧 Fix: {rule.fix}
+                      Fix: {rule.fix}
                     </div>
                   </div>
                   <div className="flex gap-2">

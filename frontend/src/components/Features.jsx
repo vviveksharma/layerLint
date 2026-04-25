@@ -30,10 +30,10 @@ const Features = () => {
     },
     {
       icon: FiCpu,
-      title: 'AI-Powered',
-      description: 'Machine learning suggestions for optimal layer ordering.',
+      title: 'Intelligent Analysis',
+      description: 'Advanced pattern recognition for optimal layer ordering.',
       gradient: 'from-[#00f3ff] to-[#bf00ff]',
-      stat: 'beta feature'
+      stat: 'smart detection'
     },
     {
       icon: FiGitBranch,
@@ -65,12 +65,12 @@ const Features = () => {
             <span className="text-[#00f3ff] text-sm font-medium">CORE FEATURES</span>
           </div>
           <h2 className="text-5xl md:text-6xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-[#00f3ff] via-white to-[#bf00ff] bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-[#00f3ff] via-white to-[#bf00ff] bg-clip-text text-transparent">
               Next-Gen Analysis
             </span>
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Built for modern DevOps workflows with AI-powered insights
+            Built for modern DevOps workflows with intelligent insights
           </p>
         </motion.div>
 
@@ -85,9 +85,9 @@ const Features = () => {
               viewport={{ once: true }}
               className="group relative"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-[#00f3ff] to-[#bf00ff] rounded-2xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] rounded-2xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
               <div className="relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-[#00f3ff]/50 transition-all duration-300">
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`w-14 h-14 rounded-xl bg-linear-to-br ${feature.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
                   <feature.icon className="text-white" size={28} />
                 </div>
                 <div className="flex justify-between items-start mb-2">

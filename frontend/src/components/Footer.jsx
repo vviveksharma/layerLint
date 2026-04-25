@@ -38,10 +38,10 @@ const Footer = () => {
     <footer className="relative border-t border-white/10 bg-black/30 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          {/* Brand Column */}
+
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#00f3ff] to-[#bf00ff] rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-linear-to-br from-[#00f3ff] to-[#bf00ff] rounded-xl flex items-center justify-center">
                 <span className="text-white font-bold text-xl">L</span>
               </div>
               <div>
@@ -50,7 +50,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-gray-400 mb-4 leading-relaxed">
-              AI-powered static analysis tool for Docker layer caching optimization. 
+              Static analysis tool for Docker layer caching optimization. 
               Speed up CI/CD pipelines by up to 10x.
             </p>
             <div className="flex space-x-4">
@@ -69,7 +69,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Link Columns */}
           {sections.map((section) => (
             <div key={section.title}>
               <h3 className="text-white font-semibold mb-4">{section.title}</h3>
@@ -89,7 +88,7 @@ const Footer = () => {
           ))}
         </div>
 
-        {/* Bottom Bar */}
+
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-500 text-sm">
             © {currentYear} LayerLint. Made with <FiHeart className="inline text-red-400" size={12} /> for DevOps

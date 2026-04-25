@@ -51,27 +51,25 @@ const Navbar = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            {/* Logo */}
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="flex items-center space-x-3 cursor-pointer group"
             >
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#00f3ff] to-[#bf00ff] rounded-xl blur-lg opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="relative w-10 h-10 bg-gradient-to-r from-[#00f3ff] to-[#bf00ff] rounded-xl flex items-center justify-center">
+                <div className="absolute inset-0 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] rounded-xl blur-lg opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative w-10 h-10 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] rounded-xl flex items-center justify-center">
                   <span className="text-white font-bold text-xl">L</span>
                 </div>
               </div>
               <div>
-                <span className="text-white font-bold text-2xl tracking-tight bg-gradient-to-r from-white to-[#00f3ff] bg-clip-text text-transparent">
+                <span className="text-white font-bold text-2xl tracking-tight bg-linear-to-r from-white to-[#00f3ff] bg-clip-text">
                   LayerLint
                 </span>
                 <div className="text-[10px] text-[#00f3ff]/60 tracking-wider">v2.0.0</div>
               </div>
             </motion.div>
 
-            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-1">
               {navLinks.map((link) => (
                 <a
@@ -93,7 +91,7 @@ const Navbar = () => {
                   )}
                 </a>
               ))}
-              <div className="w-px h-6 bg-gradient-to-b from-transparent via-[#00f3ff]/30 to-transparent mx-4"></div>
+              <div className="w-px h-6 bg-linear-to-b from-transparent via-[#00f3ff]/30 to-transparent mx-4"></div>
               <a
                 href="https://github.com/vviveksharma/layerLint"
                 target="_blank"
@@ -106,13 +104,12 @@ const Navbar = () => {
                 href="#demo"
                 className="relative px-6 py-2 rounded-lg font-medium text-sm overflow-hidden group"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-[#00f3ff] to-[#bf00ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute inset-[1px] bg-[#0a0a0f] rounded-lg"></div>
+                <div className="absolute inset-0 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-px bg-[#0a0a0f] rounded-lg"></div>
                 <span className="relative text-white group-hover:text-white z-10">Get Started</span>
               </a>
             </div>
 
-            {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="md:hidden p-2 rounded-lg bg-white/5 backdrop-blur-sm text-white border border-white/10"
@@ -122,7 +119,6 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         <motion.div
           initial={false}
           animate={isOpen ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
@@ -153,7 +149,7 @@ const Navbar = () => {
               <a
                 href="#demo"
                 onClick={() => setIsOpen(false)}
-                className="block text-center px-4 py-3 bg-gradient-to-r from-[#00f3ff] to-[#bf00ff] rounded-lg text-white font-medium"
+                className="block text-center px-4 py-3 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] rounded-lg text-white font-medium"
               >
                 Get Started
               </a>

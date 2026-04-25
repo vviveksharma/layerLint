@@ -11,8 +11,8 @@ const DemoSection = () => {
     cli: `# One-command installation
 curl -sSL https://layerlint.dev/install.sh | sh
 
-# Scan with AI suggestions
-layerlint scan --dockerfile Dockerfile --ai
+# Scan with smart suggestions
+layerlint scan --dockerfile Dockerfile
 
 # Auto-fix mode
 layerlint fix --dockerfile Dockerfile --auto
@@ -41,7 +41,7 @@ ext install layerlint.vscode-extension
 # • Real-time linting
 # • One-click fixes
 # • Build time predictions
-# • AI suggestions`
+# • Smart suggestions`
   }
 
   const copyToClipboard = () => {
@@ -64,7 +64,7 @@ ext install layerlint.vscode-extension
             <span className="text-[#00f3ff] text-sm font-medium">QUICK START</span>
           </div>
           <h2 className="text-5xl md:text-6xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-[#00f3ff] via-white to-[#ff00e5] bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-[#00f3ff] via-white to-[#ff00e5] bg-clip-text text-transparent">
               Start in Seconds
             </span>
           </h2>
@@ -82,9 +82,8 @@ ext install layerlint.vscode-extension
           onHoverEnd={() => setIsHovered(false)}
           className="relative group"
         >
-          <div className={`absolute -inset-1 bg-gradient-to-r from-[#00f3ff] to-[#bf00ff] rounded-2xl blur-xl transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-50'}`}></div>
+          <div className={`absolute -inset-1 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] rounded-2xl blur-xl transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-50'}`}></div>
           <div className="relative bg-black/60 backdrop-blur-2xl rounded-2xl border border-[#00f3ff]/30 overflow-hidden">
-            {/* Tabs */}
             <div className="flex border-b border-white/10">
               {[
                 { id: 'cli', label: 'CLI', icon: FiTerminal },
@@ -105,14 +104,13 @@ ext install layerlint.vscode-extension
                   {activeTab === tab.id && (
                     <motion.div
                       layoutId="activeTabBar"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#00f3ff] to-[#bf00ff]"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-linear-to-r from-[#00f3ff] to-[#bf00ff]"
                     />
                   )}
                 </button>
               ))}
             </div>
 
-            {/* Terminal Content */}
             <div className="relative">
               <button
                 onClick={copyToClipboard}
@@ -128,24 +126,23 @@ ext install layerlint.vscode-extension
               </div>
             </div>
 
-            {/* Stats Bar */}
-            <div className="bg-gradient-to-r from-[#00f3ff]/5 to-[#bf00ff]/5 p-4 border-t border-white/10">
+            <div className="bg-linear-to-r from-[#00f3ff]/5 to-[#bf00ff]/5 p-4 border-t border-white/10">
               <div className="flex flex-wrap justify-center gap-6">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-white">3</div>
                   <div className="text-gray-400 text-xs">Integration Methods</div>
                 </div>
-                <div className="w-px h-8 bg-gradient-to-b from-transparent via-[#00f3ff]/30 to-transparent"></div>
+                <div className="w-px h-8 bg-linear-to-b from-transparent via-[#00f3ff]/30 to-transparent"></div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-white">15+</div>
                   <div className="text-gray-400 text-xs">Active Rules</div>
                 </div>
-                <div className="w-px h-8 bg-gradient-to-b from-transparent via-[#00f3ff]/30 to-transparent"></div>
+                <div className="w-px h-8 bg-linear-to-b from-transparent via-[#00f3ff]/30 to-transparent"></div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-white">0</div>
                   <div className="text-gray-400 text-xs">Build Required</div>
                 </div>
-                <div className="w-px h-8 bg-gradient-to-b from-transparent via-[#00f3ff]/30 to-transparent"></div>
+                <div className="w-px h-8 bg-linear-to-b from-transparent via-[#00f3ff]/30 to-transparent"></div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-white">100%</div>
                   <div className="text-gray-400 text-xs">Free & Open Source</div>

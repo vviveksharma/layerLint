@@ -13,10 +13,10 @@ const CTASection = () => {
           viewport={{ once: true }}
           className="relative group"
         >
-          <div className="absolute -inset-2 bg-gradient-to-r from-[#00f3ff] via-[#bf00ff] to-[#ff00e5] rounded-3xl blur-2xl opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="absolute -inset-2 bg-linear-to-r from-[#00f3ff] via-[#bf00ff] to-[#ff00e5] rounded-3xl blur-2xl opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
           <div className="relative bg-black/60 backdrop-blur-2xl rounded-3xl overflow-hidden border border-white/10">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[radial-gradient(circle,_#00f3ff_0%,_transparent_70%)] opacity-20"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[radial-gradient(circle,_#bf00ff_0%,_transparent_70%)] opacity-20"></div>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[radial-gradient(circle,#00f3ff_0%,transparent_70%)] opacity-20"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[radial-gradient(circle,#bf00ff_0%,transparent_70%)] opacity-20"></div>
             
             <div className="relative z-10 p-12 text-center">
               <motion.div
@@ -29,13 +29,13 @@ const CTASection = () => {
                   repeat: Infinity,
                   repeatDelay: 2
                 }}
-                className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-[#00f3ff] to-[#bf00ff] rounded-2xl flex items-center justify-center shadow-2xl"
+                className="w-20 h-20 mx-auto mb-6 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] rounded-2xl flex items-center justify-center shadow-2xl"
               >
                 <FiStar className="text-white" size={40} />
               </motion.div>
               
               <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
-                Ready to <span className="bg-gradient-to-r from-[#00f3ff] to-[#ff00e5] bg-clip-text text-transparent">10x</span> Your Builds?
+                Ready to <span className="bg-linear-to-r from-[#00f3ff] to-[#ff00e5] bg-clip-text text-transparent">10x</span> Your Builds?
               </h2>
               
               <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
@@ -49,7 +49,7 @@ const CTASection = () => {
                   href="https://github.com/vviveksharma/layerLint"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#00f3ff] to-[#bf00ff] rounded-xl font-semibold text-white hover:shadow-2xl transition-all"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] rounded-xl font-semibold text-white hover:shadow-2xl transition-all"
                 >
                   <FiGithub size={20} />
                   Star on GitHub
@@ -68,7 +68,7 @@ const CTASection = () => {
               </div>
               
               <p className="text-gray-400 text-sm mt-6">
-                ⚡ No credit card required • 🎉 Open source • 🚀 Forever free
+                No credit card required • Open source • Forever free
               </p>
             </div>
           </div>
