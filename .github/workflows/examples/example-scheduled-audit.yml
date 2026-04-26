@@ -1,0 +1,64 @@
+name: Scheduled Dockerfile Audit
+on:
+  schedule:
+    # Run every Monday at 9 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:  # Allow manual triggers
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    name: Weekly Dockerfile Audit
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Install LayerLint
+        run: |
+          curl -sSL https://raw.githubusercontent.com/vviveksharma/layerLint/main/install.sh | sh
+      
+      - name: Find and scan all Dockerfiles
+        id: scan
+        run: |
+          echo "# LayerLint Weekly Audit Report" > report.md
+          echo "Generated: $(date)" >> report.md
+          echo "" >> report.md
+          
+          FOUND_ISSUES=false
+          for dockerfile in $(find . -type f -name "Dockerfile*"); do
+            echo "## Scanning: $dockerfile" >> report.md
+            echo '```' >> report.md
+            if layerlint scan --dockerfile "$dockerfile" >> report.md 2>&1; then
+              echo "✅ No issues found" >> report.md
+            else
+              echo "❌ Issues detected" >> report.md
+              FOUND_ISSUES=true
+            fi
+            echo '```' >> report.md
+            echo "" >> report.md
+          done
+          
+          echo "found_issues=$FOUND_ISSUES" >> $GITHUB_OUTPUT
+      
+      - name: Create Issue if problems found
+        if: steps.scan.outputs.found_issues == 'true'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('report.md', 'utf8');
+            
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '⚠️ LayerLint Weekly Audit - Issues Detected',
+              body: report,
+              labels: ['dockerfile', 'audit', 'security']
+            });
+      
+      - name: Upload report as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: layerlint-audit-report
+          path: report.md
+          retention-days: 30

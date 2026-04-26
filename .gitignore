@@ -1,3 +1,10 @@
 .github/skills
 /layerlint
 /guides
+
+# Test reports and generated output files
+*-report.sarif
+*-report.json
+*-report.html
+test-report.*
+reports/

@@ -1,0 +1,20 @@
+name: LayerLint - Basic Scan
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Scan Dockerfile
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Run LayerLint
+        uses: vviveksharma/layerLint@main
+        with:
+          dockerfile: ./Dockerfile
+          fail-on-severity: high

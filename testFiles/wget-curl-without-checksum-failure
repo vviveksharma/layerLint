@@ -1,0 +1,6 @@
+FROM ubuntu:22.04
+WORKDIR /app
+RUN apt-get update && apt-get install -y wget && \
+    wget https://github.com/example/binary/releases/download/v1.0.0/app && \
+    chmod +x app
+CMD ["./app"]

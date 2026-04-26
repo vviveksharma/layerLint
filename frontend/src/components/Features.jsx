@@ -14,7 +14,7 @@ const Features = () => {
     },
     {
       icon: FiShield,
-      title: '15+ Detection Rules',
+      title: '12+ Detection Rules',
       description: 'Comprehensive rules covering all common Docker layer caching anti-patterns.'
     },
     {

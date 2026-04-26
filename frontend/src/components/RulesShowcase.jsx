@@ -53,7 +53,7 @@ const RulesShowcase = () => {
             Comprehensive Coverage
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            15+ intelligent rules covering all Docker caching anti-patterns
+            12+ intelligent rules covering all Docker caching anti-patterns
           </p>
         </motion.div>
 

@@ -50,9 +50,8 @@ ext install layerlint.vscode-extension
   }
 
   return (
-    <section id="demo" className="py-32 px-6">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
+    <section className="py-32 px-6">
+      <div className="max-w-6xl mx-auto">\n        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -79,7 +78,6 @@ ext install layerlint.vscode-extension
             {[
               { id: 'cli', label: 'CLI', icon: FiTerminal },
               { id: 'github', label: 'GitHub Actions', icon: FiPlay },
-              { id: 'vscode', label: 'VS Code', icon: FiCommand },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -120,11 +118,11 @@ ext install layerlint.vscode-extension
           <div className="bg-white p-6 border-t border-gray-200">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div className="text-center">
-                <div className="text-3xl font-serif text-gray-900 mb-1">3</div>
+                <div className="text-3xl font-serif text-gray-900 mb-1">2</div>
                 <div className="text-sm text-gray-500">Integration Methods</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-serif text-gray-900 mb-1">15+</div>
+                <div className="text-3xl font-serif text-gray-900 mb-1">12+</div>
                 <div className="text-sm text-gray-500">Active Rules</div>
               </div>
               <div className="text-center">

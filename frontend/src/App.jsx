@@ -1,38 +1,14 @@
-import React, { useEffect } from 'react'
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import Features from './components/Features'
-import HowItWorks from './components/HowItWorks'
-import RulesShowcase from './components/RulesShowcase'
-import DemoSection from './components/DemoSection'
-import CTASection from './components/CTASection'
-import Footer from './components/Footer'
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import Docs from './pages/Docs'
 
 function App() {
-  useEffect(() => {
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault()
-        const target = document.querySelector(this.getAttribute('href'))
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        }
-      })
-    })
-  }, [])
-
   return (
-    <div className="min-h-screen bg-white relative overflow-x-hidden">
-      <Navbar />
-      <Hero />
-      <Features />
-      <HowItWorks />
-      <RulesShowcase />
-      <DemoSection />
-      <CTASection />
-      <Footer />
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/docs" element={<Docs />} />
+    </Routes>
   )
 }
 

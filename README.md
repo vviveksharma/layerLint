@@ -1,120 +1,67 @@
 # LayerLint
 
-Catch Docker layer cache mistakes before they slow down CI.
+![alt text](readme.png)
 
-## Overview
+Catches Dockerfile layer caching issues that slow down your builds.
 
-LayerLint is a static analysis tool that scans Dockerfiles to detect patterns that break Docker's layer caching mechanism. It helps developers identify common mistakes that lead to unnecessary rebuilds and slow CI/CD pipelines.
+## What
 
-## Problem Statement
+Changed one line of code and Docker rebuilt everything? Probably something in your Dockerfile breaking the layer cache. This tool finds those issues.
 
-Docker uses layer caching to speed up builds by reusing unchanged layers. However, certain patterns in Dockerfiles can invalidate the cache prematurely:
+It checks for stuff like:
+- Copying everything before `npm install` (so every code change reinstalls packages)
+- Using `FROM node:latest` (reproducibility nightmare)
+- Running as root (security issue)
+- Missing `.dockerignore` (slow builds, leaks secrets)
 
-- Copying all source files before installing dependencies
-- Running dependency installs after broad COPY operations
-- Inefficient layer ordering
+Takes a second to run, tells you exactly what's broken and how to fix it.
 
-These mistakes force Docker to rebuild layers unnecessarily, significantly slowing down development and CI/CD workflows.
+## Install
 
-## How It Works
-
-LayerLint analyzes your Dockerfile through the following process:
-
-1. **Parse**: Uses the Moby BuildKit parser to parse Dockerfile instructions into an AST
-2. **Scan**: Applies configured rules to detect problematic patterns
-3. **Report**: Outputs findings with severity, line numbers, and actionable suggestions
-
-### Architecture
-
-```
-cmd/layerlint/
-  ├── main.go           # Entry point
-  └── cmd/
-      ├── root.go       # CLI root command
-      └── scan.go       # Scan command implementation
-
-internal/
-  ├── dockerfile/
-  │   └── parser.go     # Dockerfile parsing using moby/buildkit
-  ├── models/
-  │   └── models.go     # Core data structures (Instruction, Finding, Rule)
-  ├── scanner/
-  │   └── scaner.go     # Rule orchestration and scanning logic
-  └── rules/
-      └── broad_copy_before_deps.go  # Rule implementations
-```
-
-## Installation
-
-### Quick Install (Linux / macOS)
-
+**Quick:**
 ```bash
 curl -sSL https://raw.githubusercontent.com/vviveksharma/layerLint/main/install.sh | sh
 ```
 
-### Pre-built Binaries
-
-Download the latest release for your platform from [GitHub Releases](https://github.com/vviveksharma/layerLint/releases).
-
-#### Linux / macOS
-
-```bash
-# Linux AMD64
-curl -sSL https://github.com/vviveksharma/layerLint/releases/latest/download/layerlint_Linux_x86_64.tar.gz | tar xz
-sudo mv layerlint /usr/local/bin/
-
-# Linux ARM64
-curl -sSL https://github.com/vviveksharma/layerLint/releases/latest/download/layerlint_Linux_arm64.tar.gz | tar xz
-sudo mv layerlint /usr/local/bin/
-
-# macOS AMD64 (Intel)
-curl -sSL https://github.com/vviveksharma/layerLint/releases/latest/download/layerlint_Darwin_x86_64.tar.gz | tar xz
-sudo mv layerlint /usr/local/bin/
-
-# macOS ARM64 (Apple Silicon)
-curl -sSL https://github.com/vviveksharma/layerLint/releases/latest/download/layerlint_Darwin_arm64.tar.gz | tar xz
-sudo mv layerlint /usr/local/bin/
-```
-
-#### Windows
-
-Download the appropriate ZIP file:
-- [Windows AMD64](https://github.com/vviveksharma/layerLint/releases/latest/download/layerlint_Windows_x86_64.zip)
-
-Extract `layerlint.exe` and add it to your PATH.
-
-### From Source
-
+**Manual:** Grab a binary from [releases](https://github.com/vviveksharma/layerLint/releases) or build it:
 ```bash
 git clone https://github.com/vviveksharma/layerLint
 cd layerLint
 make generate-build
 ```
 
-This creates a `layerlint` binary in the current directory.
-
-### Using Docker
-
-```bash
-docker build -t layerlint .
-```
-
 ## Usage
 
-### CLI
-
-Scan a Dockerfile and get findings:
-
 ```bash
-./layerlint scan --dockerfile path/to/Dockerfile
+./layerlint scan --dockerfile Dockerfile
 ```
 
-### GitHub Action
+That's it. You'll see what's broken and how to fix it.
 
-Add LayerLint to your CI workflow:
+**Report formats:**
+```bash
+# Text output (default)
+./layerlint scan --dockerfile Dockerfile
 
+# JSON (for scripts/CI)
+./layerlint scan --dockerfile Dockerfile --format json --output report.json
+
+# SARIF (GitHub Security tab)
+./layerlint scan --dockerfile Dockerfile --format sarif --output results.sarif
+
+# HTML (for artifacts)
+./layerlint scan --dockerfile Dockerfile --format html --output report.html
+```
+
+See [Report Generation Guide](guides/report-generation.md) for details.
+
+## CI/CD Integration
+
+### GitHub Actions
+
+Basic workflow:
 ```yaml
-name: Dockerfile Lint
+name: Lint Dockerfile
 on: [push, pull_request]
 
 jobs:
@@ -127,88 +74,119 @@ jobs:
           dockerfile: ./Dockerfile
 ```
 
-## Rules
+**Ready-to-use examples** in [`.github/workflows/examples/`](.github/workflows/examples/):
+- [example-basic-lint.yml](.github/workflows/examples/example-basic-lint.yml) - Simple scan
+- [example-multi-dockerfile.yml](.github/workflows/examples/example-multi-dockerfile.yml) - Scan multiple Dockerfiles
+- [example-build-deploy.yml](.github/workflows/examples/example-build-deploy.yml) - Lint then build/push
+- [example-scheduled-audit.yml](.github/workflows/examples/example-scheduled-audit.yml) - Weekly audit with issue creation
+
+### Other Platforms
+
+For GitLab CI, CircleCI, Jenkins, Azure Pipelines, etc., see the [CI/CD Integration Guide](guides/ci-cd-integration.md). Has working examples for all of them.
+
+### Pre-commit Hook
+
+```yaml
+# .pre-commit-config.yaml
+repos:
+  - repo: local
+    hooks:
+      - id: layerlint
+        name: LayerLint
+        entry: layerlint scan --dockerfile
+        language: system
+        files: Dockerfile.*
+        pass_filenames: true
+```
+
+## Testing
+
+Got test Dockerfiles in `testFiles/` that break each rule on purpose. Try them:
+
+```bash
+./layerlint scan --dockerfile testFiles/broad-copy-before-deps-failure
+```
+
+Or run all:
+```bash
+for file in testFiles/*-failure; do
+  echo "Testing: $file"
+  ./layerlint scan --dockerfile "$file"
+done
+```
+
+Each file triggers at least one violation. Useful for seeing what not to do.
+
+## The Main Rule (The One That Matters Most)
 
 ### broad-copy-before-deps
 
-**Severity**: High
-
-**Description**: Detects when dependency installation commands run after broad source copy operations.
-
-**Problem Example**:
+This kills build performance. Don't do this:
 
 ```dockerfile
 FROM golang:1.22
-WORKDIR /app
-COPY . .                    # Copies everything
-RUN go mod download         # This runs after broad copy
-RUN go build -o server
+COPY . .              # Copies everything
+RUN go mod download   # Every code change = re-download deps
 ```
 
-In this example, any source code change invalidates the `go mod download` layer cache, even if dependencies haven't changed.
-
-**Recommended Fix**:
+Do this instead:
 
 ```dockerfile
 FROM golang:1.22
-WORKDIR /app
-COPY go.mod go.sum ./       # Copy only dependency manifests
-RUN go mod download         # Install dependencies (cached unless go.mod changes)
-COPY . .                    # Copy source code
-RUN go build -o server
+COPY go.mod go.sum ./   # Just dependency files
+RUN go mod download     # Cached unless go.mod changes
+COPY . .                # Now copy source
 ```
 
-**Detected Patterns**:
-- Broad copies: `COPY . .`, `COPY . /`, `ADD . .`, `ADD . /`
-- Dependency commands: `go mod download`, `npm install`, `npm ci`, `pnpm install`, `yarn install`, `pip install`, `poetry install`
+Same pattern for npm, pip, poetry, etc. Copy dependency manifest first, install, then copy source.
+
+### Other Rules
+
+Check the [rules documentation](guides/rules.md) for the complete list. Quick summary:
+- `unpinned-base-image-tag` - Using `:latest` instead of specific versions
+- `apt-update-without-install` - Creates stale cache layers
+- `copying-secrets-into-image` - Don't bake secrets into images
+- `run-as-root` - Security issue
+- `build-without-cache-mount` - Missing BuildKit cache mounts
+- `wget-curl-without-checksum` - Supply chain risk
+- Plus a few more...
 
 ## Output Format
 
-Findings are reported in the following structure:
+When it finds issues:
 
 ```
 RuleID:     dockerfile/broad-copy-before-deps
 Severity:   high
-File:       testFiles/broad-copy-before-deps-failure
+File:       Dockerfile
 Line:       4
 Title:      Dependency install runs after broad source copy
 Message:    This dependency step runs after a broad COPY/ADD, so source changes can invalidate the dependency cache.
 Suggestion: Copy dependency manifests first, install dependencies, then copy the rest of the source.
 ```
 
-## Development
+Pretty clear what's wrong and how to fix it.
 
-### Project Structure
+## Contributing
 
-- `cmd/` - Command-line interface implementation
-- `internal/dockerfile/` - Dockerfile parsing logic
-- `internal/models/` - Core data structures
-- `internal/scanner/` - Rule execution engine
-- `internal/rules/` - Rule implementations
-- `testFiles/` - Test Dockerfiles for validation
+Code's straightforward. Rules are in `internal/rules/`, each one is its own file. To add a new rule:
 
-### Adding New Rules
+1. Create a file in `internal/rules/`
+2. Implement the `Rule` interface (`ID()` and `Check()`)
+3. Register it in `internal/scanner/scaner.go`
+4. Add a test file in `testFiles/`
 
-1. Create a new file in `internal/rules/`
-2. Implement the `Rule` interface:
-   ```go
-   type Rule interface {
-       ID() string
-       Check(file string, instructions []Instruction) []Finding
-   }
-   ```
-3. Register the rule in `internal/scanner/scaner.go` in the `DefaultRules()` function
+Look at `broad_copy_before_deps.go` for an example. Build: `make generate-build`
 
-### Building
+## Why This Exists
 
-```bash
-make generate-build
-```
+Got tired of slow builds because of bad Dockerfiles. Wrote this instead of explaining the same caching issues repeatedly.
 
-### Testing
+## Links
 
-Run against test files:
+- [Rules Documentation](guides/rules.md) - What each rule checks
+- [CI/CD Integration](guides/ci-cd-integration.md) - Platform-specific examples
+- [Report Generation](guides/report-generation.md) - JSON/SARIF/HTML outputs
+- [Releases](https://github.com/vviveksharma/layerLint/releases) - Download binaries
 
-```bash
-./layerlint scan --dockerfile testFiles/broad-copy-before-deps-failure
-```
+MIT License.

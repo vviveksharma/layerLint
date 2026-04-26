@@ -14,7 +14,7 @@ const HowItWorks = () => {
       icon: FiSearch,
       step: '02',
       title: 'Pattern Detection',
-      description: '15+ specialized rules scan for anti-patterns with intelligent suggestions.'
+      description: '12+ specialized rules scan for anti-patterns with intelligent suggestions.'
     },
     {
       icon: FiAlertTriangle,

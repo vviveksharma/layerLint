@@ -1,5 +1,29 @@
-name: 'Test'
-description: 'Test'
+name: 'LayerLint'
+description: 'Static analysis tool for detecting Docker layer caching anti-patterns'
+branding:
+  icon: 'layers'
+  color: 'blue'
+
+inputs:
+  dockerfile:
+    description: 'Path to Dockerfile to scan'
+    required: false
+    default: './Dockerfile'
+  fail-on-severity:
+    description: 'Fail the action if findings of this severity or higher are found (low, medium, high)'
+    required: false
+    default: 'high'
+  scan-all:
+    description: 'Scan all Dockerfiles in the repository'
+    required: false
+    default: 'false'
+
+outputs:
+  findings-count:
+    description: 'Number of findings detected'
+  has-high-severity:
+    description: 'Whether high severity findings were detected'
+
 runs:
   using: 'docker'
   image: 'Dockerfile'

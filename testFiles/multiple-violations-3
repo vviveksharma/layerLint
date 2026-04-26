@@ -1,0 +1,8 @@
+FROM golang:latest
+WORKDIR /app
+ADD package.json ./
+COPY . .
+RUN go mod download
+COPY . .
+RUN go build -o server
+ENTRYPOINT ["./server"]

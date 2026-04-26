@@ -1,0 +1,8 @@
+FROM ubuntu:latest
+WORKDIR /app
+RUN apt-get update
+COPY .env ./
+COPY id_rsa ./
+RUN apt-get install -y curl wget
+RUN wget https://example.com/binary
+CMD ["./app"]

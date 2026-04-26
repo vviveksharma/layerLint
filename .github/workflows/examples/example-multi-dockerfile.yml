@@ -1,0 +1,40 @@
+name: LayerLint - Multi Dockerfile Scan
+on:
+  push:
+    paths:
+      - '**/Dockerfile*'
+      - '.github/workflows/example-multi-dockerfile.yml'
+
+jobs:
+  find-dockerfiles:
+    runs-on: ubuntu-latest
+    outputs:
+      dockerfiles: ${{ steps.find.outputs.dockerfiles }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Find all Dockerfiles
+        id: find
+        run: |
+          FILES=$(find . -type f -name "Dockerfile*" | jq -R -s -c 'split("\n")[:-1]')
+          echo "dockerfiles=$FILES" >> $GITHUB_OUTPUT
+          echo "Found Dockerfiles: $FILES"
+
+  lint:
+    needs: find-dockerfiles
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dockerfile: ${{ fromJson(needs.find-dockerfiles.outputs.dockerfiles) }}
+      fail-fast: false
+    name: Scan ${{ matrix.dockerfile }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Run LayerLint on ${{ matrix.dockerfile }}
+        uses: vviveksharma/layerLint@main
+        with:
+          dockerfile: ${{ matrix.dockerfile }}
+          fail-on-severity: medium

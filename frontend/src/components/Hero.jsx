@@ -10,15 +10,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-        >
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="inline-block px-4 py-1.5 mb-8 rounded-full border border-gray-200 bg-gray-50"
-          >
-            <span className="text-gray-600 text-sm font-medium">v2.0.0 — Now Available</span>
-          </motion.div>
+        >        
 
           <h1 className="text-6xl md:text-7xl lg:text-8xl font-serif mb-8 text-gray-900 leading-tight">
             Optimize Docker
@@ -60,7 +52,7 @@ const Hero = () => {
             {[
               { value: '10x', label: 'Faster Builds' },
               { value: '98%', label: 'Cache Hit Rate' },
-              { value: '15+', label: 'Detection Rules' },
+              { value: '12+', label: 'Detection Rules' },
             ].map((stat, idx) => (
               <motion.div
                 key={idx}

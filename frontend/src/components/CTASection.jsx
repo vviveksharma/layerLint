@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FiGithub, FiArrowRight } from 'react-icons/fi'
 
@@ -34,15 +35,16 @@ const CTASection = () => {
               Get Started on GitHub
             </motion.a>
             
-            <motion.a
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              href="#demo"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-gray-300 text-gray-900 rounded-full font-medium hover:border-gray-400 transition-colors"
-            >
-              Try Demo
-              <FiArrowRight size={18} />
-            </motion.a>
+            <Link to="/docs">
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-gray-300 text-gray-900 rounded-full font-medium hover:border-gray-400 transition-colors"
+              >
+                View All Rules
+                <FiArrowRight size={18} />
+              </motion.div>
+            </Link>
           </div>
         </motion.div>
       </div>
