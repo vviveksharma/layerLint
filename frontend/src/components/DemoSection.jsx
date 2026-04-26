@@ -13,34 +13,46 @@ curl -sSL https://layerlint.dev/install.sh | sh
 # Scan your Dockerfile
 layerlint scan --dockerfile Dockerfile
 
-# Auto-fix mode
-layerlint fix --dockerfile Dockerfile --auto
+# Generate JSON report
+layerlint scan --dockerfile Dockerfile --format json --output report.json
 
-# Watch mode for development
-layerlint watch --dockerfile Dockerfile`,
+# Generate SARIF for GitHub Security
+layerlint scan --dockerfile Dockerfile --format sarif --output results.sarif
+
+# HTML report for sharing
+layerlint scan --dockerfile Dockerfile --format html --output report.html`,
     
     github: `name: LayerLint CI/CD
 on: [push, pull_request]
 
 jobs:
-  optimize:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: vviveksharma/layerLint@v2.0.0
+      - uses: vviveksharma/layerLint@main
         with:
           dockerfile: ./Dockerfile
-          auto-fix: true
-          severity: high`,
+      
+      - name: Upload SARIF to GitHub Security
+        if: always()
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: results.sarif`,
     
-    vscode: `# VS Code Extension
-ext install layerlint.vscode-extension
+    precommit: `# .pre-commit-config.yaml
+repos:
+  - repo: local
+    hooks:
+      - id: layerlint
+        name: LayerLint
+        entry: layerlint scan --dockerfile
+        language: system
+        files: Dockerfile.*
+        pass_filenames: true
 
-# Features:
-# • Real-time linting
-# • One-click fixes
-# • Build time predictions
-# • Smart suggestions`
+# Install pre-commit: pip install pre-commit
+# Run: pre-commit install`
   }
 
   const copyToClipboard = () => {
@@ -79,6 +91,7 @@ ext install layerlint.vscode-extension
             {[
               { id: 'cli', label: 'CLI', icon: FiTerminal },
               { id: 'github', label: 'GitHub Actions', icon: FiPlay },
+              { id: 'precommit', label: 'Pre-commit Hook', icon: FiCommand },
             ].map((tab) => (
               <button
                 key={tab.id}
