@@ -69,9 +69,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: vviveksharma/layerLint@main
-        with:
-          dockerfile: ./Dockerfile
+      - name: Install LayerLint
+        run: |
+          curl -sSL https://github.com/vviveksharma/layerLint/releases/latest/download/layerLint_Linux_x86_64.tar.gz | tar xz
+          chmod +x layerlint
+      - name: Scan Dockerfile
+        run: ./layerlint scan --dockerfile ./Dockerfile --fail-on-severity high
 ```
 
 **Ready-to-use examples** in [`.github/workflows/examples/`](.github/workflows/examples/):

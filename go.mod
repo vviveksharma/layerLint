@@ -3,7 +3,7 @@ module github.com/vviveksharma/layerLint
 go 1.26.3
 
 require (
-	github.com/moby/buildkit v0.29.0
+	github.com/moby/buildkit v0.30.0
 	github.com/spf13/cobra v1.10.2
 )
 

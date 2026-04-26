@@ -15,6 +15,7 @@ var (
 	dockerfilePath string
 	outputFormat   string
 	outputPath     string
+	failOnSeverity string
 )
 
 var scanCmd = &cobra.Command{
@@ -66,13 +67,34 @@ Supports multiple output formats:
 			return fmt.Errorf("failed to generate report: %w", err)
 		}
 
-		// Exit with error code if high severity issues found (for CI/CD)
-		if hasHighSeverity(findings) {
-			return fmt.Errorf("found high severity issues")
+		// Exit with error code based on severity threshold (for CI/CD)
+		if shouldFail(findings, failOnSeverity) {
+			return fmt.Errorf("found issues at or above '%s' severity", failOnSeverity)
 		}
 
 		return nil
 	},
+}
+
+func shouldFail(findings []models.Finding, threshold string) bool {
+	if len(findings) == 0 {
+		return false
+	}
+
+	severityLevels := map[string]int{
+		"low":    1,
+		"medium": 2,
+		"high":   3,
+	}
+
+	thresholdLevel := severityLevels[threshold]
+
+	for _, f := range findings {
+		if severityLevels[f.Severity] >= thresholdLevel {
+			return true
+		}
+	}
+	return false
 }
 
 func hasHighSeverity(findings []models.Finding) bool {
@@ -88,5 +110,6 @@ func init() {
 	scanCmd.Flags().StringVar(&dockerfilePath, "dockerfile", "Dockerfile", "Path to Dockerfile")
 	scanCmd.Flags().StringVarP(&outputFormat, "format", "f", "text", "Output format (text, json, sarif, html)")
 	scanCmd.Flags().StringVarP(&outputPath, "output", "o", "", "Output file path (default: stdout)")
+	scanCmd.Flags().StringVar(&failOnSeverity, "fail-on-severity", "medium", "Fail if issues at or above this severity are found (low, medium, high)")
 	scanCmd.MarkFlagRequired("dockerfile")
 }
