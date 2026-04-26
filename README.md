@@ -53,7 +53,7 @@ That's it. You'll see what's broken and how to fix it.
 ./layerlint scan --dockerfile Dockerfile --format html --output report.html
 ```
 
-See [Report Generation Guide](guides/report-generation.md) for details.
+See [Report Generation Guide](docs/report-generation.md) for details.
 
 ## CI/CD Integration
 
@@ -82,7 +82,7 @@ jobs:
 
 ### Other Platforms
 
-For GitLab CI, CircleCI, Jenkins, Azure Pipelines, etc., see the [CI/CD Integration Guide](guides/ci-cd-integration.md). Has working examples for all of them.
+For GitLab CI, CircleCI, Jenkins, Azure Pipelines, etc., see the [CI/CD Integration Guide](docs/ci-cd-integration.md). Has working examples for all of them.
 
 ### Pre-commit Hook
 
@@ -142,7 +142,7 @@ Same pattern for npm, pip, poetry, etc. Copy dependency manifest first, install,
 
 ### Other Rules
 
-Check the [rules documentation](guides/rules.md) for the complete list. Quick summary:
+Check the [rules documentation](docs/rules.md) for the complete list. Quick summary:
 - `unpinned-base-image-tag` - Using `:latest` instead of specific versions
 - `apt-update-without-install` - Creates stale cache layers
 - `copying-secrets-into-image` - Don't bake secrets into images
@@ -184,9 +184,9 @@ Got tired of slow builds because of bad Dockerfiles. Wrote this instead of expla
 
 ## Links
 
-- [Rules Documentation](guides/rules.md) - What each rule checks
-- [CI/CD Integration](guides/ci-cd-integration.md) - Platform-specific examples
-- [Report Generation](guides/report-generation.md) - JSON/SARIF/HTML outputs
+- [Rules Documentation](docs/rules.md) - What each rule checks
+- [CI/CD Integration](docs/ci-cd-integration.md) - Platform-specific examples
+- [Report Generation](docs/report-generation.md) - JSON/SARIF/HTML outputs
 - [Releases](https://github.com/vviveksharma/layerLint/releases) - Download binaries
 
 MIT License.
