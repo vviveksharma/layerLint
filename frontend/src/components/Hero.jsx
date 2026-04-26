@@ -1,191 +1,79 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { FiArrowRight, FiGithub, FiZap, FiTrendingUp, FiShield } from 'react-icons/fi'
+import { FiArrowRight, FiGithub } from 'react-icons/fi'
 
 const Hero = () => {
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-[#00f3ff]/20 via-transparent to-transparent"></div>
-        <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom,var(--tw-gradient-stops))] from-[#bf00ff]/20 via-transparent to-transparent"></div>
-        <div className="absolute inset-0 bg-noise"></div>
-      </div>
-      
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(50)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-[#00f3ff] rounded-full"
-            initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
-              opacity: Math.random() * 0.5
-            }}
-            animate={{
-              y: [null, -100, -200],
-              opacity: [null, 0]
-            }}
-            transition={{
-              duration: Math.random() * 5 + 3,
-              repeat: Infinity,
-              delay: Math.random() * 5
-            }}
-          />
-        ))}
-      </div>
-      
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 px-6">
+      <div className="max-w-6xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, type: "spring" }}
+          transition={{ duration: 0.8 }}
         >
           <motion.div
-            animate={{ 
-              boxShadow: ['0 0 0px #00f3ff', '0 0 20px #00f3ff', '0 0 0px #00f3ff']
-            }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#00f3ff]/5 border border-[#00f3ff]/30 backdrop-blur-sm mb-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="inline-block px-4 py-1.5 mb-8 rounded-full border border-gray-200 bg-gray-50"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00f3ff] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00f3ff]"></span>
-            </span>
-            <span className="text-[#00f3ff] text-sm font-medium tracking-wider">NOW AVAILABLE — v2.0.0</span>
+            <span className="text-gray-600 text-sm font-medium">v2.0.0 — Now Available</span>
           </motion.div>
 
-          <h1 className="text-6xl md:text-8xl font-bold mb-6 relative">
-            <span className="relative inline-block">
-              <span className="absolute inset-0 bg-linear-to-r from-[#00f3ff] via-[#bf00ff] to-[#ff00e5] blur-2xl opacity-50"></span>
-              <span className="relative bg-linear-to-r from-[#00f3ff] via-white to-[#ff00e5] bg-clip-text text-transparent animate-gradient">
-                Optimize Docker
-              </span>
-            </span>
+          <h1 className="text-6xl md:text-7xl lg:text-8xl font-serif mb-8 text-gray-900 leading-tight">
+            Optimize Docker
             <br />
-            <span className="relative inline-block mt-2">
-              <span className="text-white">Layer Caching</span>
-            </span>
+            Layer Caching
           </h1>
 
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8 leading-relaxed">
-            Static analysis that identifies Docker layer caching anti-patterns. 
-            <span className="text-[#00f3ff] font-semibold"> Speed up CI/CD pipelines by 10x</span> with intelligent optimization.
+          <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed font-light">
+            Static analysis that identifies Docker layer caching anti-patterns.
+            <br />
+            Speed up CI/CD pipelines by 10x with intelligent optimization.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-6 mb-12">
-            {[
-              { icon: FiZap, value: '10x', label: 'Faster Builds', color: '#00f3ff' },
-              { icon: FiTrendingUp, value: '98%', label: 'Cache Hit Rate', color: '#bf00ff' },
-              { icon: FiShield, value: '15+', label: 'Rules', color: '#ff00e5' },
-            ].map((stat, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: idx * 0.1 }}
-                whileHover={{ scale: 1.05, y: -5 }}
-                className="relative group"
-              >
-                <div className="absolute inset-0 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] rounded-2xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
-                <div className="relative flex items-center space-x-3 px-6 py-3 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
-                  <stat.icon style={{ color: stat.color }} size={24} />
-                  <span className="text-white font-bold text-2xl">{stat.value}</span>
-                  <span className="text-gray-400 text-sm">{stat.label}</span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-20">
             <motion.a
-              whileHover={{ scale: 1.05, boxShadow: '0 0 30px #00f3ff' }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               href="#demo"
-              className="group relative px-8 py-4 rounded-xl font-semibold overflow-hidden"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-800 transition-colors"
             >
-              <div className="absolute inset-0 bg-linear-to-r from-[#00f3ff] to-[#bf00ff]"></div>
-              <div className="absolute inset-px bg-[#0a0a0f] rounded-xl"></div>
-              <span className="relative text-white flex items-center gap-2">
-                Get Started
-                <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
-              </span>
+              Get Started
+              <FiArrowRight size={18} />
             </motion.a>
             
             <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               href="https://github.com/vviveksharma/layerLint"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-4 bg-white/5 backdrop-blur-sm rounded-xl text-white font-semibold flex items-center justify-center gap-2 hover:bg-white/10 transition-all border border-white/10"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-gray-300 text-gray-900 rounded-full font-medium hover:border-gray-400 transition-colors"
             >
-              <FiGithub size={20} />
-              Star on GitHub
+              <FiGithub size={18} />
+              View on GitHub
             </motion.a>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
-            className="mt-20 max-w-5xl mx-auto"
-          >
-            <div className="relative group">
-              <div className="absolute -inset-1 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] rounded-2xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
-              <div className="relative bg-black/60 backdrop-blur-2xl rounded-2xl border border-[#00f3ff]/30 overflow-hidden">
-                <div className="bg-linear-to-r from-[#00f3ff]/10 to-[#bf00ff]/10 px-4 py-3 flex items-center gap-2 border-b border-white/10">
-                  <div className="flex gap-2">
-                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                  </div>
-                  <span className="text-gray-400 text-xs ml-2 font-mono">~/layerlint</span>
-                  <div className="flex-1"></div>
-                  <span className="text-[#00f3ff] text-xs font-mono animate-pulse">● ONLINE</span>
-                </div>
-                <div className="p-6 font-mono text-sm">
-                  <div className="flex items-center gap-2">
-                    <span className="text-green-400">$</span>
-                    <span className="text-white">layerlint scan --dockerfile Dockerfile</span>
-                  </div>
-                  <div className="text-gray-500 mt-3">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                  
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.8 }}
-                    className="mt-3"
-                  >
-                    <div className="flex items-start gap-2">
-                      <span className="text-yellow-400 mt-1 text-xl">!</span>
-                      <div>
-                        <div className="text-yellow-400 font-semibold">Critical Finding Detected</div>
-                        <div className="text-cyan-400 ml-4">Rule: dockerfile/broad-copy-before-deps</div>
-                        <div className="text-red-400 ml-4">Line 12: COPY . .</div>
-                        <div className="text-gray-300 ml-4">
-                          Dependency install runs after broad source copy — breaking layer cache
-                        </div>
-                        <div className="text-green-400 ml-4 mt-1">
-                          Suggestion: Reorder layers — copy package files first, then install dependencies
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                  
-                  <div className="text-gray-500 mt-3">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.2 }}
-                    className="mt-2 flex items-center gap-2"
-                  >
-                    <span className="text-green-400">✓</span>
-                    <span className="text-green-400">Scan completed: 1 issue found</span>
-                  </motion.div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+          <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto pt-8 border-t border-gray-200">
+            {[
+              { value: '10x', label: 'Faster Builds' },
+              { value: '98%', label: 'Cache Hit Rate' },
+              { value: '15+', label: 'Detection Rules' },
+            ].map((stat, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 + idx * 0.1 }}
+                className="text-center"
+              >
+                <div className="text-4xl font-serif text-gray-900 mb-2">{stat.value}</div>
+                <div className="text-sm text-gray-500">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>

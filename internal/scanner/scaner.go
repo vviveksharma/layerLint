@@ -11,6 +11,14 @@ func DefaultRules() []models.Rule {
 		rules.MissingDockerIgnore{},
 		rules.ManifestWithoutLockfile{},
 		rules.BuildWithoutCacheMount{},
+		rules.MultipleBroadCopies{},
+		rules.UnpinnedBaseImageTag{},
+		rules.CopyingSecretsintoImage{},
+		rules.AptUpdateWithoutInstall{},
+		rules.RedundantDependencyInstall{},
+		rules.RunAsRoot{},
+		rules.WgetCurlWithoutChecksum{},
+		rules.AddInsteadOfCopy{},
 	}
 }
 

@@ -1,6 +1,6 @@
 module github.com/vviveksharma/layerLint
 
-go 1.26.2
+go 1.26.3
 
 require (
 	github.com/moby/buildkit v0.29.0

@@ -1,76 +1,48 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { FiGithub, FiArrowRight, FiStar, FiHeart } from 'react-icons/fi'
+import { FiGithub, FiArrowRight } from 'react-icons/fi'
 
 const CTASection = () => {
   return (
-    <section className="py-32 relative">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-32 px-6 bg-gray-50">
+      <div className="max-w-4xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, type: "spring" }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="relative group"
+          className="text-center bg-white rounded-3xl p-16 shadow-lg"
         >
-          <div className="absolute -inset-2 bg-linear-to-r from-[#00f3ff] via-[#bf00ff] to-[#ff00e5] rounded-3xl blur-2xl opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <div className="relative bg-black/60 backdrop-blur-2xl rounded-3xl overflow-hidden border border-white/10">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[radial-gradient(circle,#00f3ff_0%,transparent_70%)] opacity-20"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[radial-gradient(circle,#bf00ff_0%,transparent_70%)] opacity-20"></div>
+          <h2 className="text-4xl md:text-6xl font-serif text-gray-900 mb-6">
+            Ready to Optimize?
+          </h2>
+          
+          <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
+            Join thousands of developers using LayerLint to speed up their Docker builds and improve CI/CD efficiency.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <motion.a
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              href="https://github.com/vviveksharma/layerLint"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-800 transition-colors"
+            >
+              <FiGithub size={18} />
+              Get Started on GitHub
+            </motion.a>
             
-            <div className="relative z-10 p-12 text-center">
-              <motion.div
-                animate={{ 
-                  scale: [1, 1.2, 1],
-                  rotate: [0, 360]
-                }}
-                transition={{ 
-                  duration: 3,
-                  repeat: Infinity,
-                  repeatDelay: 2
-                }}
-                className="w-20 h-20 mx-auto mb-6 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] rounded-2xl flex items-center justify-center shadow-2xl"
-              >
-                <FiStar className="text-white" size={40} />
-              </motion.div>
-              
-              <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
-                Ready to <span className="bg-linear-to-r from-[#00f3ff] to-[#ff00e5] bg-clip-text text-transparent">10x</span> Your Builds?
-              </h2>
-              
-              <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
-                Join 10,000+ developers using LayerLint to optimize Docker layer caching and speed up CI/CD pipelines.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <motion.a
-                  whileHover={{ scale: 1.05, boxShadow: '0 0 40px #00f3ff' }}
-                  whileTap={{ scale: 0.95 }}
-                  href="https://github.com/vviveksharma/layerLint"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] rounded-xl font-semibold text-white hover:shadow-2xl transition-all"
-                >
-                  <FiGithub size={20} />
-                  Star on GitHub
-                  <FiHeart className="ml-1" />
-                </motion.a>
-                
-                <motion.a
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  href="#demo"
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-xl font-semibold border border-white/20 hover:bg-white/20 transition-all"
-                >
-                  Start Free
-                  <FiArrowRight />
-                </motion.a>
-              </div>
-              
-              <p className="text-gray-400 text-sm mt-6">
-                No credit card required • Open source • Forever free
-              </p>
-            </div>
+            <motion.a
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              href="#demo"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-gray-300 text-gray-900 rounded-full font-medium hover:border-gray-400 transition-colors"
+            >
+              Try Demo
+              <FiArrowRight size={18} />
+            </motion.a>
           </div>
         </motion.div>
       </div>

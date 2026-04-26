@@ -2,104 +2,81 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { 
   FiZap, FiShield, FiTrendingUp, FiCpu, 
-  FiGitBranch, FiClock, FiAward, FiGlobe 
+  FiGitBranch, FiClock
 } from 'react-icons/fi'
 
 const Features = () => {
   const features = [
     {
       icon: FiZap,
-      title: 'Lightning Fast',
-      description: 'Static analysis without building images. Get results in milliseconds.',
-      gradient: 'from-[#00f3ff] to-[#00f3ff]/50',
-      stat: '~50ms'
+      title: 'Lightning Fast Analysis',
+      description: 'Static analysis without building images. Get results in milliseconds, not minutes.'
     },
     {
       icon: FiShield,
       title: '15+ Detection Rules',
-      description: 'Comprehensive rules for all caching anti-patterns.',
-      gradient: 'from-[#bf00ff] to-[#bf00ff]/50',
-      stat: '96% coverage'
+      description: 'Comprehensive rules covering all common Docker layer caching anti-patterns.'
     },
     {
       icon: FiTrendingUp,
       title: '10x Faster Builds',
-      description: 'Optimize layer caching to reduce CI/CD build times dramatically.',
-      gradient: 'from-[#ff00e5] to-[#ff00e5]/50',
-      stat: 'industry best'
+      description: 'Optimize layer caching to dramatically reduce CI/CD build times.'
     },
     {
       icon: FiCpu,
-      title: 'Intelligent Analysis',
-      description: 'Advanced pattern recognition for optimal layer ordering.',
-      gradient: 'from-[#00f3ff] to-[#bf00ff]',
-      stat: 'smart detection'
+      title: 'Intelligent Pattern Recognition',
+      description: 'Advanced analysis for optimal layer ordering and dependency management.'
     },
     {
       icon: FiGitBranch,
       title: 'CI/CD Native',
-      description: 'Native GitHub Action + all major CI platforms.',
-      gradient: 'from-[#bf00ff] to-[#ff00e5]',
-      stat: 'ready'
+      description: 'Native GitHub Action support plus integration with all major CI platforms.'
     },
     {
       icon: FiClock,
       title: 'Real-time Feedback',
-      description: 'Instant suggestions with line numbers and auto-fix options.',
-      gradient: 'from-[#ff00e5] to-[#00f3ff]',
-      stat: 'live'
+      description: 'Instant suggestions with precise line numbers and actionable fixes.'
     }
   ]
 
   return (
-    <section id="features" className="py-32 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="features" className="py-32 px-6 bg-gray-50">
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <div className="inline-block px-4 py-1.5 rounded-full bg-[#00f3ff]/10 border border-[#00f3ff]/30 mb-4">
-            <span className="text-[#00f3ff] text-sm font-medium">CORE FEATURES</span>
-          </div>
-          <h2 className="text-5xl md:text-6xl font-bold mb-4">
-            <span className="bg-linear-to-r from-[#00f3ff] via-white to-[#bf00ff] bg-clip-text text-transparent">
-              Next-Gen Analysis
-            </span>
+          <span className="text-sm font-medium text-gray-500 uppercase tracking-wider">Features</span>
+          <h2 className="text-5xl md:text-6xl font-serif text-gray-900 mt-4 mb-6">
+            Built for Modern DevOps
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Built for modern DevOps workflows with intelligent insights
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Intelligent analysis with powerful insights for your Docker workflow
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.05 }}
-              whileHover={{ y: -8, scale: 1.02 }}
+              transition={{ delay: idx * 0.1 }}
               viewport={{ once: true }}
-              className="group relative"
+              className="bg-white rounded-2xl p-8 hover:shadow-lg transition-shadow duration-300"
             >
-              <div className="absolute inset-0 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] rounded-2xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-              <div className="relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-[#00f3ff]/50 transition-all duration-300">
-                <div className={`w-14 h-14 rounded-xl bg-linear-to-br ${feature.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  <feature.icon className="text-white" size={28} />
-                </div>
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-semibold text-white">{feature.title}</h3>
-                  <span className="text-xs text-[#00f3ff] font-mono bg-[#00f3ff]/10 px-2 py-1 rounded-full">
-                    {feature.stat}
-                  </span>
-                </div>
-                <p className="text-gray-400 leading-relaxed">
-                  {feature.description}
-                </p>
+              <div className="w-12 h-12 rounded-xl bg-gray-900 flex items-center justify-center mb-6">
+                <feature.icon className="text-white" size={24} />
               </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                {feature.title}
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                {feature.description}
+              </p>
             </motion.div>
           ))}
         </div>

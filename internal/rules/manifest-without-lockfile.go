@@ -60,11 +60,11 @@ func (r ManifestWithoutLockfile) Check(file string, instructions []models.Instru
 }
 
 func isNpmCI(args string) bool {
-	return strings.Contains(args, "RUN npm ci")
+	return strings.Contains(args, "npm ci")
 }
 
 func isGoModDownload(args string) bool {
-	return strings.Contains(args, "RUN go mod download")
+	return strings.Contains(args, "go mod download")
 }
 
 func extractCopiedFiles(args string) []string {
@@ -72,8 +72,5 @@ func extractCopiedFiles(args string) []string {
 	if len(fields) < 3 {
 		return nil
 	}
-
-	// args is like: "COPY package.json package-lock.json ./"
-	// fields[0] is COPY, last field is destination
 	return fields[1 : len(fields)-1]
 }

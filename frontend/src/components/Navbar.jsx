@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { FiMenu, FiX, FiGithub, FiTerminal, FiGlobe } from 'react-icons/fi'
+import { FiMenu, FiX, FiGithub } from 'react-icons/fi'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -42,121 +42,94 @@ const Navbar = () => {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
-        className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+        transition={{ duration: 0.5 }}
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           scrolled 
-            ? 'bg-[#0a0a0f]/80 backdrop-blur-2xl border-b border-[#00f3ff]/20 shadow-2xl' 
+            ? 'bg-white/80 backdrop-blur-md border-b border-gray-200' 
             : 'bg-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center space-x-3 cursor-pointer group"
+              whileHover={{ scale: 1.02 }}
+              className="flex items-center space-x-2 cursor-pointer"
             >
-              <div className="relative">
-                <div className="absolute inset-0 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] rounded-xl blur-lg opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="relative w-10 h-10 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] rounded-xl flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">L</span>
-                </div>
-              </div>
-              <div>
-                <span className="text-white font-bold text-2xl tracking-tight bg-linear-to-r from-white to-[#00f3ff] bg-clip-text">
-                  LayerLint
-                </span>
-                <div className="text-[10px] text-[#00f3ff]/60 tracking-wider">v2.0.0</div>
-              </div>
+              <span className="text-2xl font-medium tracking-tight text-gray-900">LayerLint</span>
             </motion.div>
 
-            <div className="hidden md:flex items-center space-x-1">
+            <div className="hidden md:flex items-center space-x-8">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
-                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${
+                  className={`relative text-sm font-medium transition-colors duration-200 ${
                     activeSection === link.id
-                      ? 'text-[#00f3ff]'
-                      : 'text-gray-400 hover:text-white'
+                      ? 'text-gray-900'
+                      : 'text-gray-500 hover:text-gray-900'
                   }`}
                 >
                   {link.name}
                   {activeSection === link.id && (
                     <motion.div
                       layoutId="activeTab"
-                      className="absolute inset-0 bg-[#00f3ff]/10 rounded-lg -z-10"
+                      className="absolute -bottom-5.25 left-0 right-0 h-0.5 bg-gray-900"
                       transition={{ type: "spring", stiffness: 500, damping: 30 }}
                     />
                   )}
                 </a>
               ))}
-              <div className="w-px h-6 bg-linear-to-b from-transparent via-[#00f3ff]/30 to-transparent mx-4"></div>
               <a
                 href="https://github.com/vviveksharma/layerLint"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg hover:bg-white/5 transition-all duration-300 group"
+                className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
               >
-                <FiGithub className="text-gray-400 group-hover:text-[#00f3ff] transition-colors" size={20} />
-              </a>
-              <a
-                href="#demo"
-                className="relative px-6 py-2 rounded-lg font-medium text-sm overflow-hidden group"
-              >
-                <div className="absolute inset-0 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute inset-px bg-[#0a0a0f] rounded-lg"></div>
-                <span className="relative text-white group-hover:text-white z-10">Get Started</span>
+                <FiGithub className="text-gray-900" size={20} />
               </a>
             </div>
 
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 rounded-lg bg-white/5 backdrop-blur-sm text-white border border-white/10"
+              className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
             >
-              {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+              {isOpen ? <FiX size={24} className="text-gray-900" /> : <FiMenu size={24} className="text-gray-900" />}
             </button>
           </div>
         </div>
+      </motion.nav>
 
+      {/* Mobile menu */}
+      {isOpen && (
         <motion.div
-          initial={false}
-          animate={isOpen ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="md:hidden overflow-hidden bg-[#0a0a0f]/95 backdrop-blur-2xl border-b border-[#00f3ff]/20"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          className="fixed inset-0 z-40 bg-white md:hidden pt-20"
         >
-          <div className="py-4 space-y-2 px-4">
+          <div className="px-6 py-8 space-y-4">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="block px-4 py-3 text-gray-300 hover:text-[#00f3ff] hover:bg-white/5 rounded-lg transition-all"
+                className="block text-lg font-medium text-gray-900 hover:text-gray-600 transition-colors py-2"
               >
                 {link.name}
               </a>
             ))}
-            <div className="pt-4 space-y-3">
-              <a
-                href="https://github.com/vviveksharma/layerLint"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center space-x-2 px-4 py-3 bg-white/5 rounded-lg text-white border border-white/10"
-              >
-                <FiGithub size={20} />
-                <span>GitHub</span>
-              </a>
-              <a
-                href="#demo"
-                onClick={() => setIsOpen(false)}
-                className="block text-center px-4 py-3 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] rounded-lg text-white font-medium"
-              >
-                Get Started
-              </a>
-            </div>
+            <a
+              href="https://github.com/vviveksharma/layerLint"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-lg font-medium text-gray-900 hover:text-gray-600 transition-colors py-2"
+            >
+              <FiGithub size={20} />
+              GitHub
+            </a>
           </div>
         </motion.div>
-      </motion.nav>
+      )}
     </>
   )
 }

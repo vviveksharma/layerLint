@@ -1,0 +1,136 @@
+# GoReleaser configuration for LayerLint
+# Documentation: https://goreleaser.com
+
+version: 2
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: layerlint
+    main: ./cmd/layerlint
+    binary: layerlint
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    # Exclude combinations that don't make sense
+    ignore:
+      - goos: windows
+        goarch: arm64
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+      - -X main.commit={{.Commit}}
+      - -X main.date={{.Date}}
+    flags:
+      - -trimpath
+
+archives:
+  - id: layerlint-archive
+    format: tar.gz
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- .Version }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - README.md
+      - LICENSE*
+
+checksum:
+  name_template: 'checksums.txt'
+  algorithm: sha256
+
+changelog:
+  use: github
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^chore:'
+      - '^ci:'
+      - 'merge conflict'
+      - Merge pull request
+      - Merge remote-tracking branch
+      - Merge branch
+  groups:
+    - title: 'New Features'
+      regexp: '^.*?feat(\([[:word:]]+\))??!?:.+$'
+      order: 0
+    - title: 'Bug Fixes'
+      regexp: '^.*?fix(\([[:word:]]+\))??!?:.+$'
+      order: 1
+    - title: 'Performance Improvements'
+      regexp: '^.*?perf(\([[:word:]]+\))??!?:.+$'
+      order: 2
+    - title: 'Other Changes'
+      order: 999
+
+release:
+  github:
+    owner: vviveksharma
+    name: layerLint
+  draft: false
+  prerelease: auto
+  mode: append
+  name_template: "v{{.Version}}"
+  header: |
+    ## LayerLint v{{.Version}}
+    
+    Docker layer caching optimization tool - Speed up your CI/CD builds by 10x!
+    
+    ### Installation
+    
+    #### Linux / macOS
+    ```bash
+    # AMD64
+    curl -sSL https://github.com/vviveksharma/layerLint/releases/download/v{{.Version}}/layerlint_{{.Version}}_Linux_x86_64.tar.gz | tar xz
+    sudo mv layerlint /usr/local/bin/
+    
+    # ARM64
+    curl -sSL https://github.com/vviveksharma/layerLint/releases/download/v{{.Version}}/layerlint_{{.Version}}_Linux_arm64.tar.gz | tar xz
+    sudo mv layerlint /usr/local/bin/
+    ```
+    
+    #### Windows
+    Download the ZIP file for your architecture and extract `layerlint.exe` to a directory in your PATH.
+    
+    ### What's Changed
+  footer: |
+    **Full Changelog**: https://github.com/vviveksharma/layerLint/compare/{{.PreviousTag}}...v{{.Version}}
+
+# Homebrew tap (optional - for future)
+# brews:
+#   - name: layerlint
+#     repository:
+#       owner: vviveksharma
+#       name: homebrew-tap
+#     description: "Static analysis tool for Docker layer caching optimization"
+#     homepage: "https://github.com/vviveksharma/layerLint"
+#     license: "MIT"
+
+# Docker images (optional)
+# dockers:
+#   - image_templates:
+#       - "ghcr.io/vviveksharma/layerlint:{{ .Version }}"
+#       - "ghcr.io/vviveksharma/layerlint:latest"
+#     dockerfile: Dockerfile
+#     build_flag_templates:
+#       - "--pull"
+#       - "--label=org.opencontainers.image.created={{.Date}}"
+#       - "--label=org.opencontainers.image.title={{.ProjectName}}"
+#       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+#       - "--label=org.opencontainers.image.version={{.Version}}"

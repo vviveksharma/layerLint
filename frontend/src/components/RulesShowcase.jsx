@@ -1,70 +1,59 @@
-import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { FiAlertCircle, FiCode, FiCheck, FiCopy, FiHeart } from 'react-icons/fi'
+import React from 'react'
+import { motion } from 'framer-motion'
 
 const RulesShowcase = () => {
-  const [copied, setCopied] = useState(false)
-  const [liked, setLiked] = useState(false)
-
   const rules = [
     {
       id: 'dockerfile/broad-copy-before-deps',
-      severity: 'critical',
+      severity: 'Critical',
       title: 'Broad COPY Before Dependencies',
-      description: 'Copying all source files before installing dependencies breaks layer cache.',
-      impact: '~30-45s slower build',
-      fix: 'Reorder layers to copy manifests first',
-      gradient: 'from-red-500 to-pink-500'
+      description: 'Copying all source files before installing dependencies breaks layer cache and forces unnecessary rebuilds.',
+      impact: '30-45s slower builds',
+      fix: 'Copy dependency manifests first, install dependencies, then copy source code'
     },
     {
       id: 'dockerfile/inefficient-cache',
-      severity: 'high',
+      severity: 'High',
       title: 'Inefficient Layer Ordering',
-      description: 'Frequently changing instructions placed before stable ones.',
-      impact: '~15-20s slower build',
-      fix: 'Place static dependencies before source code',
-      gradient: 'from-orange-500 to-red-500'
+      description: 'Frequently changing instructions placed before stable ones invalidate cache unnecessarily.',
+      impact: '15-20s slower builds',
+      fix: 'Place static dependencies and configuration before frequently changing source code'
     },
     {
       id: 'dockerfile/missing-cache-mounts',
-      severity: 'medium',
+      severity: 'Medium',
       title: 'Missing Cache Mounts',
-      description: 'Package managers downloading same packages repeatedly.',
-      impact: '~10-15s slower build',
-      fix: 'Add --mount=type=cache flag',
-      gradient: 'from-yellow-500 to-orange-500'
+      description: 'Package managers downloading the same packages repeatedly without cache persistence.',
+      impact: '10-15s slower builds',
+      fix: 'Add --mount=type=cache flags to package manager commands'
     }
   ]
 
-  const getSeverityBadge = (severity) => {
-    const badges = {
-      critical: 'bg-red-500/20 text-red-400 border-red-500/30',
-      high: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
-      medium: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30'
+  const getSeverityStyle = (severity) => {
+    const styles = {
+      Critical: 'bg-red-50 text-red-700 border-red-200',
+      High: 'bg-orange-50 text-orange-700 border-orange-200',
+      Medium: 'bg-yellow-50 text-yellow-700 border-yellow-200'
     }
-    return badges[severity]
+    return styles[severity]
   }
 
   return (
-    <section id="rules" className="py-32 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="rules" className="py-32 px-6 bg-gray-50">
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <div className="inline-block px-4 py-1.5 rounded-full bg-[#ff00e5]/10 border border-[#ff00e5]/30 mb-4">
-            <span className="text-[#ff00e5] text-sm font-medium">DETECTION RULES</span>
-          </div>
-          <h2 className="text-5xl md:text-6xl font-bold mb-4">
-            <span className="bg-linear-to-r from-[#ff00e5] via-white to-[#00f3ff] bg-clip-text text-transparent">
-              15+ Intelligent Rules
-            </span>
+          <span className="text-sm font-medium text-gray-500 uppercase tracking-wider">Detection Rules</span>
+          <h2 className="text-5xl md:text-6xl font-serif text-gray-900 mt-4 mb-6">
+            Comprehensive Coverage
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Comprehensive coverage for all Docker caching anti-patterns
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            15+ intelligent rules covering all Docker caching anti-patterns
           </p>
         </motion.div>
 
@@ -72,60 +61,31 @@ const RulesShowcase = () => {
           {rules.map((rule, idx) => (
             <motion.div
               key={rule.id}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ scale: 1.02, x: 10 }}
-              className="group relative"
+              className="bg-white rounded-2xl p-8 hover:shadow-lg transition-shadow duration-300"
             >
-              <div className="absolute inset-0 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] rounded-2xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-              <div className="relative bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-6 overflow-hidden">
-                <div className="flex flex-wrap items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-3 flex-wrap">
-                      <span className={`px-3 py-1 rounded-full text-xs font-mono border ${getSeverityBadge(rule.severity)}`}>
-                        {rule.severity.toUpperCase()}
-                      </span>
-                      <code className="text-[#00f3ff] text-sm font-mono">{rule.id}</code>
-                      <span className="text-gray-500 text-sm">Impact: {rule.impact}</span>
-                    </div>
-                    <h3 className="text-xl font-semibold text-white mb-2">{rule.title}</h3>
-                    <p className="text-gray-400 mb-3">{rule.description}</p>
-                    <div className="text-green-400 text-sm">
-                      Fix: {rule.fix}
-                    </div>
+              <div className="flex items-start justify-between gap-4 mb-4">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-3 flex-wrap">
+                    <span className={`px-3 py-1 rounded-lg text-xs font-semibold border ${getSeverityStyle(rule.severity)}`}>
+                      {rule.severity}
+                    </span>
+                    <code className="text-gray-500 text-sm font-mono">{rule.id}</code>
                   </div>
-                  <div className="flex gap-2">
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => setLiked(!liked)}
-                      className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
-                    >
-                      <FiHeart className={liked ? 'text-red-400 fill-red-400' : 'text-gray-400'} size={20} />
-                    </motion.button>
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => {
-                        copyToClipboard(rule.id)
-                        setCopied(true)
-                        setTimeout(() => setCopied(false), 2000)
-                      }}
-                      className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
-                    >
-                      {copied ? <FiCheck className="text-green-400" size={20} /> : <FiCopy className="text-gray-400" size={20} />}
-                    </motion.button>
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">{rule.title}</h3>
+                  <p className="text-gray-600 mb-4 leading-relaxed">{rule.description}</p>
+                  <div className="flex items-start gap-2">
+                    <span className="text-sm font-medium text-gray-700">Fix:</span>
+                    <span className="text-sm text-gray-600">{rule.fix}</span>
                   </div>
                 </div>
-                
-                <div className="mt-4 pt-4 border-t border-white/10">
-                  <div className="flex items-center gap-2 text-xs text-gray-500">
-                    <span className="w-2 h-2 rounded-full bg-[#00f3ff] animate-pulse"></span>
-                    Active detection • Real-time analysis • Auto-fix available
-                  </div>
-                </div>
+              </div>
+              
+              <div className="mt-6 pt-6 border-t border-gray-200">
+                <span className="text-sm text-gray-500">Impact: {rule.impact}</span>
               </div>
             </motion.div>
           ))}
@@ -133,10 +93,6 @@ const RulesShowcase = () => {
       </div>
     </section>
   )
-}
-
-const copyToClipboard = (text) => {
-  navigator.clipboard.writeText(text)
 }
 
 export default RulesShowcase

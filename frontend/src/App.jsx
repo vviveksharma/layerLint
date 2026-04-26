@@ -7,7 +7,6 @@ import RulesShowcase from './components/RulesShowcase'
 import DemoSection from './components/DemoSection'
 import CTASection from './components/CTASection'
 import Footer from './components/Footer'
-import CursorFollow from './components/CursorFollow'
 
 function App() {
   useEffect(() => {
@@ -24,8 +23,7 @@ function App() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] relative overflow-x-hidden">
-      <CursorFollow />
+    <div className="min-h-screen bg-white relative overflow-x-hidden">
       <Navbar />
       <Hero />
       <Features />

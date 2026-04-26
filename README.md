@@ -46,6 +46,43 @@ internal/
 
 ## Installation
 
+### Quick Install (Linux / macOS)
+
+```bash
+curl -sSL https://raw.githubusercontent.com/vviveksharma/layerLint/main/install.sh | sh
+```
+
+### Pre-built Binaries
+
+Download the latest release for your platform from [GitHub Releases](https://github.com/vviveksharma/layerLint/releases).
+
+#### Linux / macOS
+
+```bash
+# Linux AMD64
+curl -sSL https://github.com/vviveksharma/layerLint/releases/latest/download/layerlint_Linux_x86_64.tar.gz | tar xz
+sudo mv layerlint /usr/local/bin/
+
+# Linux ARM64
+curl -sSL https://github.com/vviveksharma/layerLint/releases/latest/download/layerlint_Linux_arm64.tar.gz | tar xz
+sudo mv layerlint /usr/local/bin/
+
+# macOS AMD64 (Intel)
+curl -sSL https://github.com/vviveksharma/layerLint/releases/latest/download/layerlint_Darwin_x86_64.tar.gz | tar xz
+sudo mv layerlint /usr/local/bin/
+
+# macOS ARM64 (Apple Silicon)
+curl -sSL https://github.com/vviveksharma/layerLint/releases/latest/download/layerlint_Darwin_arm64.tar.gz | tar xz
+sudo mv layerlint /usr/local/bin/
+```
+
+#### Windows
+
+Download the appropriate ZIP file:
+- [Windows AMD64](https://github.com/vviveksharma/layerLint/releases/latest/download/layerlint_Windows_x86_64.zip)
+
+Extract `layerlint.exe` and add it to your PATH.
+
 ### From Source
 
 ```bash

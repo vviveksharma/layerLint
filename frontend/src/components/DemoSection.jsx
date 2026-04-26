@@ -5,13 +5,12 @@ import { FiTerminal, FiCopy, FiCheck, FiPlay, FiCommand } from 'react-icons/fi'
 const DemoSection = () => {
   const [copied, setCopied] = useState(false)
   const [activeTab, setActiveTab] = useState('cli')
-  const [isHovered, setIsHovered] = useState(false)
 
   const demoCommands = {
     cli: `# One-command installation
 curl -sSL https://layerlint.dev/install.sh | sh
 
-# Scan with smart suggestions
+# Scan your Dockerfile
 layerlint scan --dockerfile Dockerfile
 
 # Auto-fix mode
@@ -51,102 +50,90 @@ ext install layerlint.vscode-extension
   }
 
   return (
-    <section id="demo" className="py-32 relative">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="demo" className="py-32 px-6">
+      <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <div className="inline-block px-4 py-1.5 rounded-full bg-[#00f3ff]/10 border border-[#00f3ff]/30 mb-4">
-            <span className="text-[#00f3ff] text-sm font-medium">QUICK START</span>
-          </div>
-          <h2 className="text-5xl md:text-6xl font-bold mb-4">
-            <span className="bg-linear-to-r from-[#00f3ff] via-white to-[#ff00e5] bg-clip-text text-transparent">
-              Start in Seconds
-            </span>
+          <span className="text-sm font-medium text-gray-500 uppercase tracking-wider">Quick Start</span>
+          <h2 className="text-5xl md:text-6xl font-serif text-gray-900 mt-4 mb-6">
+            Get Started in Seconds
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Multiple ways to integrate LayerLint into your workflow
           </p>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
           viewport={{ once: true }}
-          onHoverStart={() => setIsHovered(true)}
-          onHoverEnd={() => setIsHovered(false)}
-          className="relative group"
+          className="bg-white rounded-2xl shadow-lg overflow-hidden"
         >
-          <div className={`absolute -inset-1 bg-linear-to-r from-[#00f3ff] to-[#bf00ff] rounded-2xl blur-xl transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-50'}`}></div>
-          <div className="relative bg-black/60 backdrop-blur-2xl rounded-2xl border border-[#00f3ff]/30 overflow-hidden">
-            <div className="flex border-b border-white/10">
-              {[
-                { id: 'cli', label: 'CLI', icon: FiTerminal },
-                { id: 'github', label: 'GitHub Actions', icon: FiPlay },
-                { id: 'vscode', label: 'VS Code', icon: FiCommand },
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-6 py-4 font-medium transition-all relative ${
-                    activeTab === tab.id
-                      ? 'text-[#00f3ff]'
-                      : 'text-gray-400 hover:text-white'
-                  }`}
-                >
-                  <tab.icon size={18} />
-                  {tab.label}
-                  {activeTab === tab.id && (
-                    <motion.div
-                      layoutId="activeTabBar"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-linear-to-r from-[#00f3ff] to-[#bf00ff]"
-                    />
-                  )}
-                </button>
-              ))}
-            </div>
-
-            <div className="relative">
+          <div className="flex border-b border-gray-200">
+            {[
+              { id: 'cli', label: 'CLI', icon: FiTerminal },
+              { id: 'github', label: 'GitHub Actions', icon: FiPlay },
+              { id: 'vscode', label: 'VS Code', icon: FiCommand },
+            ].map((tab) => (
               <button
-                onClick={copyToClipboard}
-                className="absolute top-4 right-4 z-10 p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors backdrop-blur-sm border border-white/10"
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-2 px-6 py-4 font-medium transition-all relative ${
+                  activeTab === tab.id
+                    ? 'text-gray-900 bg-gray-50'
+                    : 'text-gray-500 hover:text-gray-900'
+                }`}
               >
-                {copied ? <FiCheck className="text-green-400" size={18} /> : <FiCopy className="text-gray-300" size={18} />}
+                <tab.icon size={18} />
+                {tab.label}
+                {activeTab === tab.id && (
+                  <motion.div
+                    layoutId="activeTabBar"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900"
+                  />
+                )}
               </button>
-              
-              <div className="p-6 font-mono text-sm overflow-x-auto">
-                <pre className="text-gray-300 whitespace-pre-wrap">
-                  <code>{demoCommands[activeTab]}</code>
-                </pre>
-              </div>
-            </div>
+            ))}
+          </div>
 
-            <div className="bg-linear-to-r from-[#00f3ff]/5 to-[#bf00ff]/5 p-4 border-t border-white/10">
-              <div className="flex flex-wrap justify-center gap-6">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-white">3</div>
-                  <div className="text-gray-400 text-xs">Integration Methods</div>
-                </div>
-                <div className="w-px h-8 bg-linear-to-b from-transparent via-[#00f3ff]/30 to-transparent"></div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-white">15+</div>
-                  <div className="text-gray-400 text-xs">Active Rules</div>
-                </div>
-                <div className="w-px h-8 bg-linear-to-b from-transparent via-[#00f3ff]/30 to-transparent"></div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-white">0</div>
-                  <div className="text-gray-400 text-xs">Build Required</div>
-                </div>
-                <div className="w-px h-8 bg-linear-to-b from-transparent via-[#00f3ff]/30 to-transparent"></div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-white">100%</div>
-                  <div className="text-gray-400 text-xs">Free & Open Source</div>
-                </div>
+          <div className="relative">
+            <button
+              onClick={copyToClipboard}
+              className="absolute top-4 right-4 z-10 p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors"
+            >
+              {copied ? <FiCheck className="text-gray-900" size={18} /> : <FiCopy className="text-gray-600" size={18} />}
+            </button>
+            
+            <div className="p-8 font-mono text-sm bg-gray-50 overflow-x-auto">
+              <pre className="text-gray-800">
+                <code>{demoCommands[activeTab]}</code>
+              </pre>
+            </div>
+          </div>
+
+          <div className="bg-white p-6 border-t border-gray-200">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="text-center">
+                <div className="text-3xl font-serif text-gray-900 mb-1">3</div>
+                <div className="text-sm text-gray-500">Integration Methods</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-serif text-gray-900 mb-1">15+</div>
+                <div className="text-sm text-gray-500">Active Rules</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-serif text-gray-900 mb-1">0</div>
+                <div className="text-sm text-gray-500">Build Required</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-serif text-gray-900 mb-1">100%</div>
+                <div className="text-sm text-gray-500">Open Source</div>
               </div>
             </div>
           </div>
