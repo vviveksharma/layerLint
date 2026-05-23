@@ -49,7 +49,7 @@ func ParseFormat(s string) (Format, error) {
 
 func PrintText(findings []models.Finding) {
 	if len(findings) == 0 {
-		fmt.Println("LayerLint found no cache issues")
+		fmt.Println("LayerLint found no issues")
 		return
 	}
 
