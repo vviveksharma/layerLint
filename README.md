@@ -30,6 +30,64 @@ cd layerLint
 make generate-build
 ```
 
+## CLI Usage
+
+### Setting Up After Download
+
+**macOS/Linux (.tar.gz):**
+
+1. Extract the downloaded file:
+```bash
+tar -xzf layerLint_*.tar.gz
+```
+
+2. Make it executable:
+```bash
+chmod +x layerlint
+```
+
+3. **Option A - Install globally (recommended):**
+```bash
+# Move to system PATH
+sudo mv layerlint /usr/local/bin/
+
+# Or create a symlink (keeps original location)
+sudo ln -s $(pwd)/layerlint /usr/local/bin/layerlint
+```
+
+Now use anywhere:
+```bash
+layerlint scan --dockerfile Dockerfile
+```
+
+4. **Option B - Run from current directory:**
+```bash
+./layerlint scan --dockerfile Dockerfile
+```
+
+**Windows (.zip):**
+
+1. Extract the zip file (Right-click → Extract All)
+
+2. **Option A - Add to PATH:**
+   - Move `layerlint.exe` to `C:\Program Files\LayerLint\`
+   - Add to system PATH:
+     - Search "Environment Variables" in Start menu
+     - Edit "Path" variable
+     - Add `C:\Program Files\LayerLint\`
+   - Restart terminal and use anywhere: `layerlint scan --dockerfile Dockerfile`
+
+3. **Option B - Run from current directory:**
+```cmd
+layerlint.exe scan --dockerfile Dockerfile
+```
+
+**Verify Installation:**
+```bash
+layerlint --version
+layerlint scan --help
+```
+
 ## Usage
 
 ```bash
