@@ -244,17 +244,23 @@ sudo mv layerlint /usr/local/bin/`;
               <h3 className="text-gray-900 font-semibold mb-4">Other Installation Methods</h3>
               <div className="grid md:grid-cols-2 gap-4 text-left">
                 <div className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-md transition-shadow">
-                  <h4 className="text-gray-900 font-medium mb-3">Install Script (Linux/macOS)</h4>
-                  <code className="text-xs text-gray-700 font-mono block bg-gray-50 p-3 rounded-lg">
-                    curl -sSL https://raw.githubusercontent.com/vviveksharma/layerLint/main/install.sh | bash
-                  </code>
+                  <h4 className="text-gray-900 font-medium mb-3 text-base">Install Script (Linux/macOS)</h4>
+                  <div className="bg-gray-50 p-4 rounded-lg overflow-x-auto">
+                    <code className="text-xs text-gray-700 font-mono block break-all">
+                      curl -sSL https://raw.githubusercontent.com/vviveksharma/layerLint/main/install.sh | bash
+                    </code>
+                  </div>
                 </div>
                 <div className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-md transition-shadow">
-                  <h4 className="text-gray-900 font-medium mb-3">Build from Source</h4>
-                  <code className="text-xs text-gray-700 font-mono block bg-gray-50 p-3 rounded-lg">
-                    git clone https://github.com/vviveksharma/layerLint.git<br/>
-                    cd layerLint && go build ./cmd/layerlint
-                  </code>
+                  <h4 className="text-gray-900 font-medium mb-3 text-base">Build from Source</h4>
+                  <div className="bg-gray-50 p-4 rounded-lg overflow-x-auto space-y-1">
+                    <code className="text-xs text-gray-700 font-mono block break-all">
+                      git clone https://github.com/vviveksharma/layerLint.git
+                    </code>
+                    <code className="text-xs text-gray-700 font-mono block">
+                      cd layerLint && go build ./cmd/layerlint
+                    </code>
+                  </div>
                 </div>
               </div>
             </div>
