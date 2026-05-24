@@ -89,13 +89,13 @@ sudo mv layerlint /usr/local/bin/`;
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
       
-      <div className="pt-24 pb-20 px-6">
+      <div className="pt-32 pb-20 px-6">
         <div className="max-w-4xl mx-auto">
           {/* Back Button */}
-          <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-8">
+          <Link to="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors mb-8">
             <FiArrowLeft />
             <span>Back to Home</span>
           </Link>
@@ -104,12 +104,13 @@ sudo mv layerlint /usr/local/bin/`;
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
-            <h1 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-600 bg-clip-text text-transparent">
-              Download LayerLint
+            <span className="text-sm font-medium text-gray-500 uppercase tracking-wider">Download</span>
+            <h1 className="text-5xl md:text-6xl font-serif text-gray-900 mt-4 mb-6">
+              Get LayerLint
             </h1>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Choose your platform and start optimizing your Dockerfiles in seconds
             </p>
           </motion.div>
@@ -119,11 +120,11 @@ sudo mv layerlint /usr/local/bin/`;
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700"
+            className="bg-white rounded-2xl p-8 shadow-lg mb-8"
           >
             {/* OS Selection */}
             <div className="mb-6">
-              <label className="block text-gray-300 text-sm font-semibold mb-3">
+              <label className="block text-gray-900 text-sm font-semibold mb-3">
                 Operating System
               </label>
               <div className="grid grid-cols-3 gap-4">
@@ -132,18 +133,18 @@ sudo mv layerlint /usr/local/bin/`;
                   return (
                     <motion.button
                       key={os.value}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                       onClick={() => {
                         setSelectedOS(os.value);
                         if (!os.archs.includes(selectedArch)) {
                           setSelectedArch(os.archs[0]);
                         }
                       }}
-                      className={`p-4 rounded-lg border-2 transition-all ${
+                      className={`p-4 rounded-xl border-2 transition-all ${
                         selectedOS === os.value
-                          ? 'border-blue-500 bg-blue-500/10'
-                          : 'border-gray-700 bg-gray-900/50 hover:border-gray-600'
+                          ? 'border-gray-900 bg-gray-900 text-white'
+                          : 'border-gray-200 bg-white hover:border-gray-300 text-gray-900'
                       }`}
                     >
                       <Icon className="w-8 h-8 mx-auto mb-2" />
@@ -156,23 +157,23 @@ sudo mv layerlint /usr/local/bin/`;
 
             {/* Architecture Selection */}
             <div className="mb-6">
-              <label className="block text-gray-300 text-sm font-semibold mb-3">
+              <label className="block text-gray-900 text-sm font-semibold mb-3">
                 Architecture
               </label>
               <div className="flex gap-4">
                 {currentOS?.archs.map((arch) => (
                   <motion.button
                     key={arch}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     onClick={() => setSelectedArch(arch)}
-                    className={`flex-1 py-3 rounded-lg border-2 transition-all ${
+                    className={`flex-1 py-3 rounded-xl border-2 transition-all ${
                       selectedArch === arch
-                        ? 'border-blue-500 bg-blue-500/10'
-                        : 'border-gray-700 bg-gray-900/50 hover:border-gray-600'
+                        ? 'border-gray-900 bg-gray-900 text-white'
+                        : 'border-gray-200 bg-white hover:border-gray-300 text-gray-900'
                     }`}
                   >
-                    <span className="font-mono text-sm">{arch}</span>
+                    <span className="font-mono text-sm font-medium">{arch}</span>
                   </motion.button>
                 ))}
               </div>
@@ -180,14 +181,14 @@ sudo mv layerlint /usr/local/bin/`;
 
             {/* Version Selection */}
             <div className="mb-8">
-              <label className="block text-gray-300 text-sm font-semibold mb-3">
+              <label className="block text-gray-900 text-sm font-semibold mb-3">
                 Version
               </label>
               <select
                 value={selectedVersion}
                 onChange={(e) => setSelectedVersion(e.target.value)}
                 disabled={loading}
-                className="w-full bg-gray-900 border-2 border-gray-700 rounded-lg px-4 py-3 text-white focus:border-blue-500 focus:outline-none disabled:opacity-50"
+                className="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:border-gray-900 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <option>Loading versions...</option>
@@ -207,16 +208,16 @@ sudo mv layerlint /usr/local/bin/`;
               whileTap={{ scale: 0.98 }}
               onClick={handleDownload}
               disabled={loading}
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-4 rounded-lg flex items-center justify-center gap-3 hover:from-blue-700 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gray-900 text-white font-medium py-4 rounded-full flex items-center justify-center gap-3 hover:bg-gray-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <FiDownload className="w-5 h-5" />
               Download LayerLint {selectedVersion} for {currentOS?.name} ({selectedArch})
             </motion.button>
 
             {/* Install Instructions */}
-            <div className="mt-6 p-4 bg-gray-900/80 rounded-lg border border-gray-700">
-              <p className="text-gray-400 text-xs mb-2 font-semibold">Installation:</p>
-              <pre className="text-sm text-green-400 font-mono whitespace-pre-wrap overflow-x-auto">
+            <div className="mt-6 p-4 bg-gray-50 rounded-xl border border-gray-200">
+              <p className="text-gray-900 text-xs font-semibold mb-2">Installation:</p>
+              <pre className="text-sm text-gray-700 font-mono whitespace-pre-wrap overflow-x-auto">
                 {getInstallCommand()}
               </pre>
             </div>
@@ -227,30 +228,30 @@ sudo mv layerlint /usr/local/bin/`;
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="mt-8 text-center space-y-4"
+            className="mt-8 text-center space-y-6"
           >
             <a
               href="https://github.com/vviveksharma/layerLint/releases"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-gray-400 hover:text-blue-400 text-sm transition-colors"
+              className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 text-sm transition-colors"
             >
               <FiGithub className="w-4 h-4" />
               View all releases on GitHub
             </a>
 
-            <div className="pt-6 border-t border-gray-800">
-              <h3 className="text-gray-300 font-semibold mb-3">Other Installation Methods</h3>
+            <div className="pt-6 border-t border-gray-200">
+              <h3 className="text-gray-900 font-semibold mb-4">Other Installation Methods</h3>
               <div className="grid md:grid-cols-2 gap-4 text-left">
-                <div className="bg-gray-900/50 rounded-lg p-4 border border-gray-800">
-                  <h4 className="text-white font-medium mb-2">Install Script (Linux/macOS)</h4>
-                  <code className="text-xs text-green-400 font-mono block">
+                <div className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-md transition-shadow">
+                  <h4 className="text-gray-900 font-medium mb-3">Install Script (Linux/macOS)</h4>
+                  <code className="text-xs text-gray-700 font-mono block bg-gray-50 p-3 rounded-lg">
                     curl -sSL https://raw.githubusercontent.com/vviveksharma/layerLint/main/install.sh | bash
                   </code>
                 </div>
-                <div className="bg-gray-900/50 rounded-lg p-4 border border-gray-800">
-                  <h4 className="text-white font-medium mb-2">Build from Source</h4>
-                  <code className="text-xs text-green-400 font-mono block">
+                <div className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-md transition-shadow">
+                  <h4 className="text-gray-900 font-medium mb-3">Build from Source</h4>
+                  <code className="text-xs text-gray-700 font-mono block bg-gray-50 p-3 rounded-lg">
                     git clone https://github.com/vviveksharma/layerLint.git<br/>
                     cd layerLint && go build ./cmd/layerlint
                   </code>
