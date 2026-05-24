@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { FiArrowRight, FiGithub } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
 
 const Hero = () => {
   return (
@@ -25,15 +26,16 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-20">
-            <motion.a
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              href="#demo"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-800 transition-colors"
-            >
-              Get Started
-              <FiArrowRight size={18} />
-            </motion.a>
+            <Link to="/download">
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-800 transition-colors"
+              >
+                Get Started
+                <FiArrowRight size={18} />
+              </motion.div>
+            </Link>
             
             <motion.a
               whileHover={{ scale: 1.02 }}

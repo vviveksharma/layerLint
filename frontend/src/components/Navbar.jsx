@@ -35,6 +35,7 @@ const Navbar = () => {
     { name: 'Features', href: '#features', id: 'features', isRoute: false },
     { name: 'How It Works', href: '#how-it-works', id: 'how-it-works', isRoute: false },
     { name: 'Demo', href: '#demo', id: 'demo', isRoute: false },
+    { name: 'Download', href: '/download', id: 'download', isRoute: true },
     { name: 'Docs', href: '/docs', id: 'docs', isRoute: true },
   ]
 
